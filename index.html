@@ -4,31 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>she.store_dz</title>
+
   <style>
     body{
       font-family: Arial, sans-serif;
       background:#f7d9e6;
       margin:0;
-      padding:20px;
+      padding:18px;
     }
     .card{
       max-width:520px;
       margin:auto;
       background:#fff;
       border-radius:18px;
-      padding:22px;
+      padding:18px;
       box-shadow:0 10px 25px rgba(0,0,0,.12);
     }
     h1{
       text-align:center;
       color:#e91e63;
-      margin:10px 0 20px;
+      margin:8px 0 16px;
       font-size:34px;
       font-weight:800;
     }
     label{
       display:block;
-      margin-top:14px;
+      margin-top:12px;
       margin-bottom:8px;
       color:#333;
       font-size:18px;
@@ -41,54 +42,67 @@
       border:1px solid #ddd;
       font-size:18px;
       outline:none;
-      text-align:right; /* ✅ الأرقام على اليمين للمدخلات */
+      text-align:right; /* الأرقام على اليمين */
     }
-    input:focus{ border-color:#e91e63; box-shadow:0 0 0 3px rgba(233,30,99,.15); }
+    input:focus{
+      border-color:#e91e63;
+      box-shadow:0 0 0 3px rgba(233,30,99,.15);
+    }
 
+    /* ✅ صغّرنا صندوق السعر النهائي */
     .final{
-      background:#f06292; /* وردي غامق شوية */
+      background:#f06292;
       color:#111;
-      border-radius:16px;
-      padding:18px;
+      border-radius:14px;
+      padding:12px 14px;     /* كان كبير، صغرناه */
       text-align:center;
-      margin-top:18px;
-      font-size:28px;
+      margin-top:14px;
+      font-size:22px;         /* كان 28 */
       font-weight:800;
+      line-height:1.4;
+    }
+    .final .num{
+      font-size:26px;         /* رقم واضح لكن مش ضخم */
+      font-weight:900;
+      display:inline-block;
+      margin:0 6px;
     }
 
     .meaning{
       text-align:center;
       margin-top:10px;
-      font-size:22px;
+      font-size:20px;
       font-weight:700;
       color:#222;
     }
 
     .thanks{
       text-align:center;
-      margin-top:18px;
+      margin-top:14px;
       color:#111;
-      font-size:20px;
+      font-size:18px;
       font-weight:700;
     }
   </style>
 </head>
-<body>
 
+<body>
   <div class="card">
     <h1>she.store_dz <span style="font-weight:700;">مرحباً بك في</span></h1>
 
     <label>عدد المنتج</label>
-    <input id="products" type="number" min="1" value="1" oninput="calc()" />
+    <input id="products" type="number" min="1" value="10" oninput="calc()" />
 
     <label>عدد القطع</label>
     <input id="pieces" type="number" min="0" value="0" oninput="calc()" />
 
     <label>السعر الإجمالي بالدولار ($)</label>
-    <input id="usd" type="number" step="0.01" min="0" value="0" oninput="calc()" />
+    <input id="usd" type="number" step="0.01" min="0" value="60" oninput="calc()" />
 
     <div class="final">
-      السعر النهائي: <span id="finalDzd">0</span> دج
+      السعر النهائي:
+      <span class="num" id="finalDzd">0</span>
+      دج
     </div>
 
     <div class="meaning">
@@ -99,35 +113,29 @@
   </div>
 
 <script>
-  // إعداداتك
-  const RATE = 270;          // 1$ = 270 دج
-  const PROFIT = 100;        // ربحك لكل منتج
-  const PACKAGING = 50;      // تغليف مرة وحدة فقط
+  const RATE = 270;      // 1$ = 270 دج
+  const PROFIT = 100;    // ربحك لكل منتج
+  const PACKAGING = 50;  // تغليف مرة واحدة فقط
 
-  // ✅ تحويل "يعني" لملاين + آلاف بدون فواصل وبدون كسور
-  // ملاحظة: انتي حبيتي: 10 دج = 1 ألف  ✅
-  // وبالتالي: 10000 دج = 1 مليون ✅
+  // 10 دج = 1 ألف  |  10000 دج = 1 مليون
   function formatMeaning(dz){
     dz = Math.floor(dz);
-
     if (dz <= 0) return "0";
 
-    const millions = Math.floor(dz / 10000);         // كل 10000 دج = مليون
+    const millions = Math.floor(dz / 10000);
     const remainder = dz % 10000;
-    const thousands = Math.floor(remainder / 10);    // كل 10 دج = ألف
+    const thousands = Math.floor(remainder / 10);
+
+    if (millions === 0){
+      return thousands + " ألف";
+    }
 
     let millionWord = "";
     if (millions === 1) millionWord = "مليون";
     else if (millions === 2) millionWord = "مليونين";
     else millionWord = millions + " ملايين";
 
-    if (millions === 0){
-      return thousands + " ألف دج";
-    }
-
-    if (thousands > 0){
-      return millionWord + " و " + thousands + " ألف";
-    }
+    if (thousands > 0) return millionWord + " و " + thousands + " ألف";
     return millionWord;
   }
 
@@ -135,19 +143,13 @@
     const products = Math.max(0, parseInt(document.getElementById("products").value || 0));
     const usd = parseFloat(document.getElementById("usd").value || 0);
 
-    // السعر بالدج من الدولار
-    const base = usd * RATE;
-
-    // ربحك لكل منتج
+    const base = usd * RATE; // تحويل الدولار للدج
     const profitTotal = products * PROFIT;
-
-    // تغليف مرة واحدة إذا كاين على الأقل منتج واحد
     const packaging = products > 0 ? PACKAGING : 0;
 
-    // النهائي للزبونة (يشوفوه كامل)
     const final = Math.floor(base + profitTotal + packaging);
 
-    document.getElementById("finalDzd").textContent = final;       // بلا فواصل
+    document.getElementById("finalDzd").textContent = final; // بلا فواصل
     document.getElementById("meaningText").textContent = formatMeaning(final);
   }
 
