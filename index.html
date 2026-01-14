@@ -5,14 +5,13 @@
 <title>she.store_dz</title>
 
 <style>
-body {
+body{
   background:#fde4ec;
-  font-family: Tahoma, Arial;
+  font-family:Tahoma, Arial;
   margin:0;
-  padding:0;
 }
 
-.box {
+.box{
   max-width:420px;
   margin:40px auto;
   background:#fff;
@@ -21,46 +20,46 @@ body {
   box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
-h2 {
+h2{
   text-align:center;
   color:#e91e63;
   margin-bottom:25px;
 }
 
-label {
+label{
   display:block;
   margin-top:15px;
   font-size:15px;
 }
 
-input {
+input{
   width:100%;
   padding:12px;
   margin-top:5px;
   border-radius:12px;
   border:1px solid #ccc;
   font-size:16px;
-  text-align:center;
+  text-align:right; /* ✅ الأرقام على اليمين */
 }
 
-.result {
+.result{
   margin-top:25px;
-  background:#f48fb1;
+  background:#f06292; /* وردي غامق */
   color:#000;
   padding:15px;
   border-radius:15px;
-  text-align:center;
   font-size:18px;
   font-weight:bold;
+  text-align:right; /* ✅ */
 }
 
-.meaning {
-  text-align:center;
+.meaning{
   margin-top:10px;
   font-size:16px;
+  text-align:right; /* ✅ */
 }
 
-.footer {
+.footer{
   margin-top:25px;
   text-align:center;
   font-size:15px;
@@ -73,7 +72,7 @@ input {
 <div class="box">
   <h2>مرحبا بكِ في she.store_dz</h2>
 
-  <label>عدد المنتج </label>
+  <label>عدد المنتج</label>
   <input type="number" id="products" value="1" min="1">
 
   <label>عدد القطع</label>
@@ -91,12 +90,12 @@ input {
   </div>
 
   <div class="footer">
-    شكرا يا سُكرة لزيارتك ودمتي متألقة 🩷
+    شكرا يا سُكرة لزيارتك ودمتي متألقة 💕
   </div>
 </div>
 
 <script>
-function calculate() {
+function calculate(){
   const products = Number(document.getElementById("products").value);
   const usd = Number(document.getElementById("usd").value);
 
@@ -118,9 +117,9 @@ function calculate() {
     "يعني: " + Math.floor(total / 10) + " ألف دج";
 }
 
-document.querySelectorAll("input").forEach(i =>
-  i.addEventListener("input", calculate)
-);
+document.querySelectorAll("input").forEach(i=>{
+  i.addEventListener("input", calculate);
+});
 
 calculate();
 </script>
