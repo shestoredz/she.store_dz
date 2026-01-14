@@ -1,128 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>she.store_dz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>she.store_dz</title>
 
-<style>
-body{
-  background:#fde4ec;
-  font-family:Tahoma, Arial;
-  margin:0;
-}
+  <style>
+    :root{
+      --bg:#f7d6e3;
+      --card:#ffffff;
+      --pink:#e91e63;
+      --pink-dark:#f06292; /* لون وردي غامق شوي للسعر النهائي */
+      --text:#222;
+      --muted:#666;
+      --border:#e6e6e6;
+      --shadow: 0 18px 35px rgba(0,0,0,.12);
+      --radius:18px;
+    }
 
-.box{
-  max-width:420px;
-  margin:40px auto;
-  background:#fff;
-  border-radius:20px;
-  padding:25px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: var(--bg);
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      color:var(--text);
+      padding:20px;
+    }
 
-h2{
-  text-align:center;
-  color:#e91e63;
-  margin-bottom:25px;
-}
+    .card{
+      width:min(620px, 95vw);
+      background:var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:28px 22px 22px;
+    }
 
-label{
-  display:block;
-  margin-top:15px;
-  font-size:15px;
-}
+    h1{
+      margin:0 0 18px;
+      text-align:center;
+      color:var(--pink);
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
 
-input{
-  width:100%;
-  padding:12px;
-  margin-top:5px;
-  border-radius:12px;
-  border:1px solid #ccc;
-  font-size:16px;
-  text-align:right; /* ✅ الأرقام على اليمين */
-}
+    .field{
+      margin:14px 0;
+    }
 
-.result{
-  margin-top:25px;
-  background:#f06292; /* وردي غامق */
-  color:#000;
-  padding:15px;
-  border-radius:15px;
-  font-size:18px;
-  font-weight:bold;
-  text-align:right; /* ✅ */
-}
+    .label{
+      display:block;
+      margin-bottom:8px;
+      color:var(--text);
+      font-weight:700;
+      font-size:16px;
+    }
 
-.meaning{
-  margin-top:10px;
-  font-size:16px;
-  text-align:right; /* ✅ */
-}
+    input{
+      width:100%;
+      padding:14px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      font-size:18px;
+      outline:none;
+      background:#fff;
+      text-align:right; /* الأرقام على جهة اليمين */
+      direction:rtl;
+    }
 
-.footer{
-  margin-top:25px;
-  text-align:center;
-  font-size:15px;
-}
-</style>
+    input:focus{
+      border-color: rgba(233,30,99,.55);
+      box-shadow: 0 0 0 4px rgba(233,30,99,.12);
+    }
+
+    .resultBox{
+      margin:18px auto 8px;
+      background: var(--pink-dark);
+      border-radius:14px;
+      padding:16px 14px;
+      text-align:center;
+      font-weight:900;
+      font-size:22px;
+      color:#111;
+    }
+
+    .meaning{
+      text-align:center;
+      margin-top:8px;
+      font-size:18px;
+      color:#222;
+      font-weight:800;
+    }
+
+    .footer{
+      margin-top:14px;
+      text-align:center;
+      color:#111;
+      font-weight:700;
+      font-size:18px;
+    }
+
+    .footer span{
+      display:inline-block;
+      margin-right:6px;
+      color:var(--pink);
+    }
+
+    /* نخلي شكل مرتب في الموبايل */
+    @media (max-width:480px){
+      h1{font-size:24px}
+      input{font-size:17px}
+      .resultBox{font-size:20px}
+      .meaning{font-size:17px}
+    }
+  </style>
 </head>
 
 <body>
+  <div class="card">
+    <h1>مرحبا بكِ في <span style="color:var(--pink);font-weight:900">she.store_dz</span></h1>
 
-<div class="box">
-  <h2>مرحبا بكِ في she.store_dz</h2>
+    <div class="field">
+      <label class="label" for="products">عدد المنتج</label>
+      <input id="products" type="number" min="0" value="0" inputmode="numeric" />
+    </div>
 
-  <label>عدد المنتج</label>
-  <input type="number" id="products" value="1" min="1">
+    <div class="field">
+      <label class="label" for="pieces">عدد القطع</label>
+      <input id="pieces" type="number" min="0" value="0" inputmode="numeric" />
+    </div>
 
-  <label>عدد القطع</label>
-  <input type="number" id="pieces" value="1" min="1">
+    <div class="field">
+      <label class="label" for="usd">السعر الإجمالي بالدولار ($)</label>
+      <input id="usd" type="number" min="0" step="0.01" value="0" inputmode="decimal" />
+    </div>
 
-  <label>السعر الإجمالي بالدولار ($)</label>
-  <input type="number" id="usd" value="0" min="0" step="0.01">
+    <div class="resultBox" id="finalPrice">السعر النهائي: 0 دج</div>
+    <div class="meaning" id="meaning"></div>
 
-  <div class="result" id="finalPrice">
-    السعر النهائي: 0 دج
+    <div class="footer">
+      <span>💞</span> شكراً يا سُكرة لزيارتكِ ودمتي متألقة
+    </div>
   </div>
 
-  <div class="meaning" id="meaningText">
-    يعني: 0 ألف دج
-  </div>
+  <script>
+    // ✅ إعدادات الحساب (حسب طلبك)
+    const USD_TO_DZD = 270;       // 1$ = 270 دج
+    const PROFIT_PER_PRODUCT = 100; // ربحك على كل منتج
+    const PACKAGING_FIXED = 50;     // تغليف ثابت مرة وحدة (إذا كاين طلب)
 
-  <div class="footer">
-    شكرا يا سُكرة لزيارتك ودمتي متألقة 💕
-  </div>
-</div>
+    const productsEl = document.getElementById("products");
+    const piecesEl   = document.getElementById("pieces");
+    const usdEl      = document.getElementById("usd");
 
-<script>
-function calculate(){
-  const products = Number(document.getElementById("products").value);
-  const usd = Number(document.getElementById("usd").value);
+    const finalPriceEl = document.getElementById("finalPrice");
+    const meaningEl    = document.getElementById("meaning");
 
-  const rate = 270;
-  const profitPerProduct = 100;
-  const packaging = 50;
+    function toNumber(v){
+      // يحول القيم للرقم بطريقة آمنة
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
 
-  let total =
-    (usd * rate) +
-    (products * profitPerProduct) +
-    packaging;
+    function calc(){
+      const products = Math.max(0, Math.floor(toNumber(productsEl.value)));
+      const pieces   = Math.max(0, Math.floor(toNumber(piecesEl.value)));
+      const usdTotal = Math.max(0, toNumber(usdEl.value));
 
-  total = Math.round(total);
+      // قاعدة الحساب:
+      // السعر بالدينار = (السعر بالدولار * 270) + (عدد المنتجات * 100) + (50 تغليف مرة وحدة إذا كاين طلب)
+      const baseDzd = usdTotal * USD_TO_DZD;
+      const profit  = products * PROFIT_PER_PRODUCT;
 
-  document.getElementById("finalPrice").innerText =
-    "السعر النهائي: " + total + " دج";
+      // التغليف يتزاد مرة وحدة فقط إذا كان كاين منتجات/قطع/دولار
+      const hasOrder = (products > 0) || (pieces > 0) || (usdTotal > 0);
+      const packaging = hasOrder ? PACKAGING_FIXED : 0;
 
-  document.getElementById("meaningText").innerText =
-    "يعني: " + Math.floor(total / 10) + " ألف دج";
-}
+      const dzPrice = Math.round(baseDzd + profit + packaging);
 
-document.querySelectorAll("input").forEach(i=>{
-  i.addEventListener("input", calculate);
-});
+      finalPriceEl.textContent = "السعر النهائي: " + dzPrice + " دج";
 
-calculate();
-</script>
+      // ✅ "يعني: ... ألف دج" تظهر فقط إذا السعر > 0
+      if (dzPrice > 0) {
+        meaningEl.textContent = "يعني: " + Math.floor(dzPrice / 10) + " ألف دج";
+      } else {
+        meaningEl.textContent = "";
+      }
+    }
 
+    // حساب تلقائي مع أي تغيير
+    ["input","change"].forEach(evt=>{
+      productsEl.addEventListener(evt, calc);
+      piecesEl.addEventListener(evt, calc);
+      usdEl.addEventListener(evt, calc);
+    });
+
+    // أول تشغيل
+    calc();
+  </script>
 </body>
-</html>
+      </html>
