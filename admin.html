@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - she.store_dz</title>
+
+  <style>
+    :root{
+      --bg:#f7d9e2;
+      --card:#ffffff;
+      --text:#222;
+      --muted:#6b6b6b;
+      --pink:#f06292;        /* وردي غامق شوي */
+      --pink-dark:#e84c86;
+      --border:#e9e9e9;
+    }
+
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,var(--bg),#fbe7ee);
+      padding:20px;
+      color:var(--text);
+    }
+
+    .wrap{
+      width:min(920px,100%);
+      display:grid;
+      gap:16px;
+      grid-template-columns: 1fr;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+      overflow:hidden;
+    }
+
+    header{
+      padding:18px 18px 12px;
+      text-align:center;
+      border-bottom:1px solid var(--border);
+    }
+    header h1{
+      margin:0;
+      font-size:22px;
+      color:var(--pink-dark);
+      letter-spacing:.2px;
+    }
+    header p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .content{padding:16px;}
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:end;
+    }
+
+    label{
+      display:block;
+      font-size:13px;
+      color:#333;
+      margin-bottom:6px;
+    }
+
+    input{
+      width:220px;
+      max-width:100%;
+      padding:12px 12px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      outline:none;
+      font-size:16px;
+      background:#fff;
+    }
+    input:focus{border-color:#f2a3bd; box-shadow:0 0 0 3px rgba(240,98,146,.15);}
+
+    .btn{
+      border:0;
+      padding:12px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:15px;
+      font-weight:700;
+      color:#fff;
+      background:var(--pink);
+      transition:.15s;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+    .btn:hover{background:var(--pink-dark);}
+    .btn.secondary{
+      background:#9aa0a6;
+    }
+    .btn.secondary:hover{background:#7f858b;}
+
+    .meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px dashed #f0c2d1;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+    }
+    .pill{
+      background:#fff7fa;
+      border:1px solid #ffd2e1;
+      padding:8px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:14px;
+      border:1px solid var(--border);
+      margin-top:14px;
+    }
+    thead th{
+      background:#fff3f7;
+      color:#333;
+      font-size:13px;
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      text-align:right;
+    }
+    tbody td{
+      padding:10px;
+      border-bottom:1px solid var(--border);
+      font-size:14px;
+      vertical-align:middle;
+      text-align:right;
+    }
+    tbody tr:last-child td{border-bottom:0;}
+
+    .num{font-variant-numeric: tabular-nums;}
+    .right{ text-align:right; }
+    .muted{ color:var(--muted); }
+
+    .totals{
+      margin-top:16px;
+      display:grid;
+      gap:10px;
+      grid-template-columns: 1fr;
+    }
+    .totalBox{
+      background:linear-gradient(90deg,#ffd1e0,#ffb3cd);
+      border-radius:16px;
+      padding:14px 14px;
+      color:#2a0d18;
+      border:1px solid rgba(255,255,255,.5);
+      box-shadow:0 10px 24px rgba(232,76,134,.18);
+    }
+    .totalBox strong{font-size:16px;}
+    .totalLine{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:15px;
+      margin-top:10px;
+    }
+    .totalLine span{font-weight:800;}
+    .hr{
+      height:1px;
+      background:rgba(0,0,0,.08);
+      margin:10px 0;
+    }
+
+    .hint{
+      margin-top:10px;
+      font-size:12.5px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .empty{
+      margin-top:10px;
+      padding:12px;
+      border:1px dashed #f0c2d1;
+      border-radius:14px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+      background:#fffafc;
+    }
+
+    @media (min-width: 860px){
+      .wrap{grid-template-columns: 1fr;}
+      .totals{grid-template-columns: 1fr 1fr;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <h1>لوحة الأدمن - she.store_dz</h1>
+        <p>
+          ✨ اكتبي سعر المنتج بالدولار ثم اضغطي "أضف".<br/>
+          التحويل: <b>1$ = 270 دج</b> — ربحك: <b>100 دج</b> لكل منتج — التغليف: <b>+50 دج</b> مرة واحدة في الأخير.
+        </p>
+      </header>
+
+      <div class="content">
+        <div class="row">
+          <div>
+            <label>سعر المنتج بالدولار ($)</label>
+            <input id="usdInput" inputmode="decimal" placeholder="مثال: 2.35" />
+          </div>
+
+          <button class="btn" id="addBtn" type="button">➕ أضف المنتج</button>
+          <button class="btn secondary" id="clearBtn" type="button">🧹 مسح الكل</button>
+        </div>
+
+        <div class="meta">
+          <div class="pill">💱 التحويل: <b class="num">270</b> دج / $</div>
+          <div class="pill">💰 ربحك لكل منتج: <b class="num">100</b> دج</div>
+          <div class="pill">🎀 تغليف (مرة واحدة): <b class="num">50</b> دج</div>
+        </div>
+
+        <table aria-label="جدول المنتجات">
+          <thead>
+            <tr>
+              <th style="width:120px;">المنتج</th>
+              <th>السعر بالدولار</th>
+              <th>السعر بالدينار الجزائري</th>
+              <th>ربحي (هذا المنتج)</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <!-- rows inserted here -->
+          </tbody>
+        </table>
+
+        <div id="emptyState" class="empty">مازال ما أضفتِ حتى منتج 👆</div>
+
+        <div class="totals">
+          <div class="totalBox">
+            <strong>الإجمالي</strong>
+            <div class="hr"></div>
+            <div class="totalLine">
+              <div>المجموع بدون تغليف</div>
+              <span class="num" id="sumWithoutPackaging">0 دج</span>
+            </div>
+            <div class="totalLine">
+              <div>التغليف</div>
+              <span class="num" id="packagingLine">0 دج</span>
+            </div>
+            <div class="hr"></div>
+            <div class="totalLine" style="font-size:16px;">
+              <div>الإجمالي النهائي</div>
+              <span class="num" id="grandTotal">0 دج</span>
+            </div>
+            <div class="hint">✅ التغليف يضاف فقط إذا كان عندكِ منتج واحد أو أكثر.</div>
+          </div>
+
+          <div class="totalBox">
+            <strong>ربحك</strong>
+            <div class="hr"></div>
+            <div class="totalLine">
+              <div>عدد المنتجات</div>
+              <span class="num" id="countProducts">0</span>
+            </div>
+            <div class="totalLine" style="font-size:16px;">
+              <div>ربحك الإجمالي</div>
+              <span class="num" id="totalProfit">0 دج</span>
+            </div>
+            <div class="hint">💡 ربحك = (عدد المنتجات × 100 دج). التغليف ما يدخلش في ربحك.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Settings
+  const RATE_DZD_PER_USD = 270;
+  const PROFIT_PER_PRODUCT_DZD = 100;
+  const PACKAGING_ONCE_DZD = 50;
+
+  const usdInput = document.getElementById('usdInput');
+  const addBtn = document.getElementById('addBtn');
+  const clearBtn = document.getElementById('clearBtn');
+
+  const rowsEl = document.getElementById('rows');
+  const emptyState = document.getElementById('emptyState');
+
+  const sumWithoutPackagingEl = document.getElementById('sumWithoutPackaging');
+  const packagingLineEl = document.getElementById('packagingLine');
+  const grandTotalEl = document.getElementById('grandTotal');
+  const countProductsEl = document.getElementById('countProducts');
+  const totalProfitEl = document.getElementById('totalProfit');
+
+  // State
+  let products = []; // each: {usd: number, dzd: number, profit: number}
+
+  function parseUsd(raw){
+    if(!raw) return null;
+    // allow comma or dot
+    const normalized = String(raw).trim().replace(',', '.');
+    const n = Number(normalized);
+    if(!Number.isFinite(n) || n < 0) return null;
+    return n;
+  }
+
+  function formatDzd(n){
+    // No commas/dots separators (as you like). Just integer + "دج"
+    const rounded = Math.round(n);
+    return `${rounded} دج`;
+  }
+
+  function formatUsd(n){
+    // keep up to 2 decimals for display
+    const val = Math.round(n * 100) / 100;
+    return `${val}`;
+  }
+
+  function render(){
+    rowsEl.innerHTML = '';
+
+    if(products.length === 0){
+      emptyState.style.display = 'block';
+    }else{
+      emptyState.style.display = 'none';
+    }
+
+    products.forEach((p, idx) => {
+      const tr = document.createElement('tr');
+
+      tr.innerHTML = `
+        <td class="num">منتج ${idx + 1}</td>
+        <td class="num">${formatUsd(p.usd)} $</td>
+        <td class="num">${formatDzd(p.dzd)}</td>
+        <td class="num">${formatDzd(p.profit)}</td>
+      `;
+
+      rowsEl.appendChild(tr);
+    });
+
+    const sumWithoutPackaging = products.reduce((acc, p) => acc + p.dzd, 0);
+    const packaging = products.length > 0 ? PACKAGING_ONCE_DZD : 0;
+    const grandTotal = sumWithoutPackaging + packaging;
+
+    const totalProfit = products.length * PROFIT_PER_PRODUCT_DZD;
+
+    sumWithoutPackagingEl.textContent = formatDzd(sumWithoutPackaging);
+    packagingLineEl.textContent = formatDzd(packaging);
+    grandTotalEl.textContent = formatDzd(grandTotal);
+
+    countProductsEl.textContent = String(products.length);
+    totalProfitEl.textContent = formatDzd(totalProfit);
+  }
+
+  function addProduct(){
+    const usd = parseUsd(usdInput.value);
+    if(usd === null){
+      usdInput.focus();
+      usdInput.style.borderColor = '#e84c86';
+      setTimeout(() => usdInput.style.borderColor = '', 600);
+      return;
+    }
+
+    const dzd = usd * RATE_DZD_PER_USD;
+    const profit = PROFIT_PER_PRODUCT_DZD;
+
+    products.push({usd, dzd, profit});
+    usdInput.value = '';
+    usdInput.focus();
+    render();
+  }
+
+  function clearAll(){
+    products = [];
+    render();
+    usdInput.focus();
+  }
+
+  addBtn.addEventListener('click', addProduct);
+  clearBtn.addEventListener('click', clearAll);
+
+  // Enter to add
+  usdInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      addProduct();
+    }
+  });
+
+  // first render
+  render();
+  usdInput.focus();
+</script>
+</body>
+  </html>
