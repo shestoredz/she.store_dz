@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>she.store_dz</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#f7d8e3;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      padding:18px;
+    }
+
+    .card{
+      background:#fff;
+      width:min(520px, 95vw);
+      border-radius:18px;
+      padding:28px 22px;
+      box-shadow:0 18px 40px rgba(0,0,0,.12);
+      text-align:center;
+    }
+
+    h1{
+      margin:0 0 18px;
+      color:#e91e63;
+      font-size:30px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .field{
+      margin:16px 0;
+      text-align:right;
+    }
+
+    label{
+      display:block;
+      color:#333;
+      font-size:16px;
+      margin-bottom:8px;
+      font-weight:700;
+    }
+
+    input{
+      width:100%;
+      box-sizing:border-box;
+      padding:14px 14px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      font-size:18px;
+      outline:none;
+      direction:rtl;
+    }
+
+    input:focus{
+      border-color:#e91e63;
+      box-shadow:0 0 0 3px rgba(233,30,99,.12);
+    }
+
+    .resultBox{
+      margin-top:18px;
+      background:#f2b4c9;
+      border-radius:12px;
+      padding:14px 10px;
+      font-size:20px;
+      font-weight:800;
+      color:#111;
+    }
+
+    /* وردي غامق شوية للسعر النهائي */
+    .resultBox strong{
+      color:#b90f4c;
+    }
+
+    .meaning{
+      margin-top:10px;
+      font-size:18px;
+      font-weight:700;
+      color:#222;
+    }
+
+    .example{
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px dashed #e7c1cd;
+      color:#444;
+      font-size:14px;
+      line-height:1.7;
+      text-align:right;
+    }
+
+    .footer{
+      margin-top:16px;
+      font-size:18px;
+      font-weight:700;
+      color:#333;
+    }
+
+    .pink{
+      color:#e91e63;
+      font-weight:800;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>مرحبا بكِ في <span class="pink">she.store_dz</span></h1>
+
+    <div class="field">
+      <label for="products">عدد المنتج</label>
+      <input id="products" type="number" min="0" value="1" placeholder="مثال: 2">
+    </div>
+
+    <div class="field">
+      <label for="pieces">عدد القطع</label>
+      <input id="pieces" type="number" min="0" value="1" placeholder="مثال: 3">
+    </div>
+
+    <div class="field">
+      <label for="usd">السعر الإجمالي بالدولار ($)</label>
+      <input id="usd" type="number" min="0" step="0.01" value="3" placeholder="مثال: 4.5">
+    </div>
+
+    <div class="resultBox">
+      <strong>السعر النهائي:</strong> <span id="finalPrice">0</span> دج
+    </div>
+
+    <div class="meaning">
+      يعني: <span id="meaningText">0</span>
+    </div>
+
+    <div class="example">
+      <b>مثال توضيحي:</b><br>
+      إذا كان السعر النهائي <b>1200 دج</b> ➜ يعني: <b>120 ألف دج</b><br>
+      إذا كان السعر النهائي <b>500 دج</b> ➜ يعني: <b>50 ألف دج</b><br>
+      إذا كان السعر النهائي <b>230 دج</b> ➜ يعني: <b>23 ألف دج</b>
+    </div>
+
+    <div class="footer">شكرا يا سُكرة لزيارتك ودمتي متألقة 💞</div>
+  </div>
+
+  <script>
+    // ======= إعدادات الحساب =======
+    const USD_TO_DZD = 270;         // 1$ = 270 دج
+    const PROFIT_PER_PRODUCT = 100; // ربح على كل منتج
+    const PACKAGING = 50;           // تغليف مرة وحدة فقط
+
+    const elProducts = document.getElementById("products");
+    const elPieces   = document.getElementById("pieces");
+    const elUsd      = document.getElementById("usd");
+
+    const elFinal    = document.getElementById("finalPrice");
+    const elMeaning  = document.getElementById("meaningText");
+
+    // تحويل رقم إلى "ألف" بدون نقاط ولا فواصل
+    // 960 دج -> 96 ألف دج
+    function toThousandText(dzd){
+      const thousands = Math.round(dzd / 10); // 960/10 = 96
+      return `${thousands} ألف دج`;
+    }
+
+    function safeNumber(v){
+      const n = Number(v);
+      return isNaN(n) ? 0 : n;
+    }
+
+    function calc(){
+      const products = Math.max(0, safeNumber(elProducts.value));
+      const usdTotal = Math.max(0, safeNumber(elUsd.value));
+
+      // تحويل الدولار للدينار (بدون فواصل)
+      const baseDzd = usdTotal * USD_TO_DZD;
+
+      // ربح على عدد المنتجات
+      const profit = products * PROFIT_PER_PRODUCT;
+
+      // التغليف مرة وحدة فقط (إذا كاين منتجات)
+      const packaging = (products > 0) ? PACKAGING : 0;
+
+      // السعر النهائي
+      const finalDzd = Math.round(baseDzd + profit + packaging);
+
+      elFinal.textContent = finalDzd;
+      elMeaning.textContent = toThousandText(finalDzd);
+    }
+
+    // حساب تلقائي عند أي تغيير
+    [elProducts, elPieces, elUsd].forEach(inp => {
+      inp.addEventListener("input", calc);
+    });
+
+    // أول تشغيل
+    calc();
+  </script>
+</body>
+  </html>
