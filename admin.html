@@ -2,101 +2,69 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>she.store_dz - لوحة الأدمن</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>she.store_dz - admin</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fde6ef;
-      margin: 0;
-      padding: 20px;
-    }
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    h2 {
-      text-align: center;
-      color: #e91e63;
-    }
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 16px;
-    }
-    button {
-      background: #e91e63;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-    button.gray {
-      background: #ccc;
-      color: #333;
-    }
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
-    th, td {
-      border-bottom: 1px solid #eee;
-      padding: 10px;
-      text-align: center;
-    }
-    .box {
-      background: #f8c1d9;
-      padding: 15px;
-      border-radius: 14px;
-      margin-top: 20px;
-    }
+    body{font-family:Arial,sans-serif;background:#fde6ef;margin:0;padding:20px;}
+    .card{background:#fff;border-radius:16px;padding:20px;max-width:720px;margin:auto;box-shadow:0 10px 25px rgba(0,0,0,.1);}
+    h2{text-align:center;color:#e91e63;margin:8px 0 10px;}
+    p{line-height:1.7;}
+    input,button{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #ddd;font-size:16px;outline:none;text-align:right;}
+    button{background:#e91e63;color:#fff;border:none;cursor:pointer;}
+    button.gray{background:#ccc;color:#333;}
+    table{width:100%;margin-top:18px;border-collapse:collapse;}
+    th,td{border-bottom:1px solid #eee;padding:10px;text-align:center;}
+    .box{background:#f8c1d9;padding:15px;border-radius:14px;margin-top:18px;}
+    .small{opacity:.85;font-size:14px;margin-top:6px;}
   </style>
 </head>
 
 <body>
-
 <div class="card">
   <h2>she.store_dz - لوحة الأدمن</h2>
 
-  <p>💱 التحويل: 1$ = 270 دج<br>
-     💰 ربحك: 100 دج لكل منتج<br>
-     🎁 التغليف: 50 دج (مرة واحدة)</p>
+  <p>
+    ✨ اكتبي سعر المنتج بالدولار ثم اضغطي "أضف"<br>
+    💱 التحويل: 1$ = 270 دج — 💰 ربحك: 100 دج لكل منتج — 🎁 التغليف: 50 دج (مرة واحدة)
+  </p>
 
   <input type="number" step="0.01" id="usdInput" placeholder="سعر المنتج بالدولار (مثال 2.35)">
-
   <button onclick="addProduct()">➕ أضف المنتج</button>
   <button class="gray" onclick="resetAll()">🧹 مسح الكل</button>
 
-  <table id="productsTable">
+  <table>
     <thead>
       <tr>
         <th>المنتج</th>
         <th>$</th>
-        <th>السعر (دج)</th>
+        <th>سعر الشراء (دج)</th>
         <th>ربحك</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="tbody"></tbody>
   </table>
 
   <div class="box">
-    <h3>الإجمالي للزبونة</h3>
-    <p>المجموع بدون تغليف: <span id="totalDz">0</span> ألف</p>
-    <p>التغليف: <span id="packaging">0</span> ألف</p>
-    <p><strong>الإجمالي النهائي: <span id="finalDz">0</span> ألف</strong></p>
+    <h3>الإجمالي (للزبونة)</h3>
+    <p>المجموع بدون تغليف: <b><span id="totalDz">0</span> دج</b></p>
+    <div class="small">يعني: <span id="totalMeaning">0</span></div>
+
+    <p>التغليف: <b><span id="packaging">0</span> دج</b></p>
+    <div class="small">يعني: <span id="packMeaning">0</span></div>
+
+    <p><b>الإجمالي النهائي: <span id="finalDz">0</span> دج</b></p>
+    <div class="small">يعني: <span id="finalMeaning">0</span></div>
   </div>
 
   <div class="box">
-    <h3>ربحك</h3>
-    <p>عدد المنتجات: <span id="count">0</span></p>
-    <p><strong>ربحك الإجمالي: <span id="profit">0</span> ألف</strong></p>
+    <h3>ربحك (مع التغليف)</h3>
+    <p>عدد المنتجات: <b><span id="count">0</span></b></p>
+    <p><b>ربحك الإجمالي: <span id="profit">0</span> دج</b></p>
+    <div class="small">يعني: <span id="profitMeaning">0</span></div>
+
+    <div class="small">💡 ربحك = (عدد المنتجات × 100 دج) + 50 دج تغليف (مرة واحدة إذا كاين منتج)</div>
   </div>
+
 </div>
 
 <script>
@@ -106,42 +74,59 @@
 
   let products = [];
 
-  function toThousands(dz) {
-    // ❌ بلا فواصل، بلا كسور
-    return Math.floor(dz / 10);
+  // ✅ نفس الفكرة: 10000 دج = مليون / 10 دج = ألف
+  function formatMeaning(dz){
+    dz = Math.floor(dz);
+    if (dz <= 0) return "0";
+
+    const millions = Math.floor(dz / 10000);
+    const remainder = dz % 10000;
+    const thousands = Math.floor(remainder / 10);
+
+    let millionWord = "";
+    if (millions === 1) millionWord = "مليون";
+    else if (millions === 2) millionWord = "مليونين";
+    else millionWord = millions + " ملايين";
+
+    if (millions === 0){
+      return thousands + " ألف دج";
+    }
+    if (thousands > 0){
+      return millionWord + " و " + thousands + " ألف";
+    }
+    return millionWord;
   }
 
-  function addProduct() {
+  function addProduct(){
     const usd = parseFloat(document.getElementById('usdInput').value);
     if (isNaN(usd) || usd <= 0) return;
 
     const dz = usd * rate;
-    products.push({ usd, dz });
+    products.push({usd, dz});
 
     document.getElementById('usdInput').value = '';
     render();
   }
 
-  function resetAll() {
+  function resetAll(){
     products = [];
     render();
   }
 
-  function render() {
-    const tbody = document.querySelector('#productsTable tbody');
+  function render(){
+    const tbody = document.getElementById('tbody');
     tbody.innerHTML = '';
 
     let totalDz = 0;
-
     products.forEach((p, i) => {
       totalDz += p.dz;
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>منتج ${i + 1}</td>
+        <td>منتج ${i+1}</td>
         <td>$${p.usd}</td>
-        <td>${toThousands(p.dz)} ألف</td>
-        <td>${toThousands(profitPerProduct)} ألف</td>
+        <td>${Math.floor(p.dz)} دج</td>
+        <td>${profitPerProduct} دج</td>
       `;
       tbody.appendChild(tr);
     });
@@ -149,14 +134,26 @@
     const count = products.length;
     const packaging = count > 0 ? packagingFee : 0;
 
-    document.getElementById('totalDz').textContent = toThousands(totalDz);
-    document.getElementById('packaging').textContent = toThousands(packaging);
-    document.getElementById('finalDz').textContent = toThousands(totalDz + packaging);
+    // للزبونة (سعر الشراء + ربحك + تغليف)
+    const profitTotal = (count * profitPerProduct) + packaging;
+    const finalDz = Math.floor(totalDz + profitTotal);
+
+    // عرض أرقام (بلا فواصل) + "يعني"
+    document.getElementById('totalDz').textContent = Math.floor(totalDz);
+    document.getElementById('totalMeaning').textContent = formatMeaning(totalDz);
+
+    document.getElementById('packaging').textContent = packaging;
+    document.getElementById('packMeaning').textContent = formatMeaning(packaging);
+
+    document.getElementById('finalDz').textContent = finalDz;
+    document.getElementById('finalMeaning').textContent = formatMeaning(finalDz);
 
     document.getElementById('count').textContent = count;
-    document.getElementById('profit').textContent =
-      toThousands(count * profitPerProduct + packaging);
+    document.getElementById('profit').textContent = profitTotal;
+    document.getElementById('profitMeaning').textContent = formatMeaning(profitTotal);
   }
+
+  render();
 </script>
 
 </body>
