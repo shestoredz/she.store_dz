@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>she.store_dz</title>
 
-  <!-- Font (optional) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --pink-1:#ffe8f1;
       --pink-2:#ffd3e4;
-      --pink-3:#ff9ec6;
       --pink-4:#ff6aa8;
       --pink-5:#ff3f90;
       --pink-dark:#d81b73;
@@ -22,7 +20,7 @@
       --muted:#6b6b6b;
       --card:#ffffff;
       --line:#ffd0e1;
-      --shadow: 0 10px 30px rgba(216,27,115,.12);
+      --shadow: 0 10px 26px rgba(216,27,115,.12);
       --radius: 18px;
     }
 
@@ -30,58 +28,56 @@
     body{
       margin:0;
       font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, var(--pink-1), #fff 45%, #fff);
+      background: linear-gradient(180deg, var(--pink-1), #fff 46%, #fff);
       color:var(--text);
     }
 
+    /* نخلي الواجهة "قدّامك" */
     .wrap{
       width: 100%;
       max-width: 460px;
       margin: 0 auto;
-      padding: 16px 14px 28px;
+      padding: 12px 12px 16px;
+      min-height: 100svh;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
     .header{
       background: linear-gradient(90deg, var(--pink-4), var(--pink-5));
       color:#fff;
       border-radius: 22px;
-      padding: 16px 14px;
+      padding: 14px 12px;
       text-align:center;
       box-shadow: var(--shadow);
-      font-weight: 600;
-      letter-spacing:.2px;
-      font-size: 18px; /* متوسط */
+      font-weight: 700;
+      font-size: 18px;
+      flex: 0 0 auto;
     }
 
     .card{
-      margin-top: 14px;
       background: var(--card);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       border: 1px solid var(--line);
       overflow:hidden;
+      flex: 0 0 auto;
     }
 
-    .section{
-      padding: 14px;
-    }
-
-    .grid{
-      display:grid;
-      gap: 10px;
-    }
+    .section{ padding: 12px; }
 
     label{
       display:block;
       font-size: 13px;
       color: var(--muted);
       margin-bottom: 6px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     input{
       width:100%;
-      padding: 12px 12px;
+      padding: 11px 12px;
       border-radius: 14px;
       border: 1px solid #ffd3e4;
       outline: none;
@@ -100,34 +96,53 @@
       gap: 10px;
     }
 
+    /* المستطيل الوردي نقصناه */
     .dzdBox{
       margin-top: 10px;
       background: linear-gradient(90deg, #f065a8, var(--pink-dark));
       color:#fff;
       border-radius: 18px;
-      padding: 14px 14px;
+      padding: 10px 12px;   /* أقل */
       text-align:center;
     }
     .dzdValue{
-      font-size: 26px;   /* متوسط واضح */
-      font-weight: 800;
-      line-height: 1.1;
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.05;
       margin: 0;
     }
+
+    /* "يعني" كبيرة وواضحة */
     .meaning{
       margin: 6px 0 0;
-      font-size: 14px;
-      opacity:.95;
-      font-weight: 600;
+      font-size: 18px;      /* كبرناها */
+      font-weight: 900;     /* أوضح */
+      opacity: 1;
+      letter-spacing: .2px;
     }
 
-    .invoiceTitle{
-      background: var(--pink-2);
-      padding: 12px 14px;
-      font-weight: 700;
+    .afterBoxThanks{
+      text-align:center;
+      margin-top: 8px;
+      color:#c2185b;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .heart{ color: var(--pink-dark); }
+
+    /* فاتورتك (فورم) + فاتورة (عرض) في نفس الكارد باش يكونو قدامك */
+    .invoiceHead{
+      background: #ffd9e8;
+      padding: 10px 12px;
+      font-weight: 900;
       text-align:center;
       border-bottom: 1px dashed #ffb7d1;
-      font-size: 16px;
+      font-size: 15px;
+    }
+
+    .invGrid{
+      display:grid;
+      gap: 8px;
     }
 
     .invoiceCard{
@@ -138,7 +153,7 @@
     }
 
     .invBody{
-      padding: 12px 14px;
+      padding: 10px 12px;
     }
 
     .invRow{
@@ -146,35 +161,35 @@
       justify-content: space-between;
       align-items:center;
       gap: 10px;
-      padding: 10px 0;
+      padding: 8px 0;
       border-bottom: 1px solid #ffe0ec;
       font-size: 14px;
     }
     .invRow:last-child{border-bottom:none}
-    .invKey{color:#6a6a6a; font-weight:600}
-    .invVal{font-weight:700; color:#222; text-align:left; direction:ltr}
+    .invKey{color:#6a6a6a; font-weight:700}
+    .invVal{font-weight:800; color:#222; text-align:left; direction:ltr}
 
     .thank{
       text-align:center;
-      padding: 12px 14px 16px;
+      padding: 10px 12px 12px;
       color:#333;
-      font-weight: 700;
+      font-weight: 900;
+      font-size: 14px;
     }
-    .heart{color: var(--pink-dark);}
 
     .actions{
       display:flex;
       gap: 10px;
-      padding: 12px 14px 14px;
+      padding: 10px 12px 12px;
     }
     button{
       flex:1;
       border:none;
       border-radius: 16px;
-      padding: 12px 10px;
-      font-weight: 800;
+      padding: 11px 10px;
+      font-weight: 900;
       cursor:pointer;
-      font-size: 15px;
+      font-size: 14px;
     }
     .btnClear{
       background: #fff;
@@ -184,22 +199,22 @@
     .btnDownload{
       background: linear-gradient(90deg, var(--pink-4), var(--pink-5));
       color:#fff;
-      box-shadow: 0 10px 22px rgba(255,63,144,.18);
+      box-shadow: 0 10px 18px rgba(255,63,144,.18);
     }
 
-    .note{
-      text-align:center;
-      margin-top: 10px;
-      color:#c2185b;
-      font-weight:700;
+    /* نخلي الجزء الأخير يوسّع شوية باش ما تهبطي بزاف */
+    .grow{
+      flex: 1 1 auto;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:0;
     }
 
-    /* نخلي كلشي متوسط ومرتب */
-    .spacer{height:2px}
-
-    /* Small devices */
+    /* للأجهزة الصغيرة بزاف */
     @media (max-width:360px){
-      .dzdValue{font-size:24px}
+      .dzdValue{font-size:22px}
+      .meaning{font-size:17px}
       .header{font-size:17px}
       input{font-size:14px}
     }
@@ -210,9 +225,9 @@
   <div class="wrap">
     <div class="header">مرحباً بكِ في she.store_dz</div>
 
-    <!-- Inputs -->
+    <!-- الجزء الفوقاني -->
     <div class="card">
-      <div class="section grid">
+      <div class="section">
         <div class="row2">
           <div>
             <label for="products">عدد المنتج</label>
@@ -224,42 +239,44 @@
           </div>
         </div>
 
-        <div>
+        <div style="margin-top:10px">
           <label for="usd">السعر الإجمالي بالدولار ($)</label>
           <input id="usd" inputmode="decimal" placeholder="" />
         </div>
 
-        <!-- DZD result -->
         <div class="dzdBox" aria-live="polite">
           <p class="dzdValue" id="dzdText">0 دج</p>
           <p class="meaning" id="meaningText">يعني: 0 ألف</p>
         </div>
+
+        <div class="afterBoxThanks">شكراً لكِ يا سكرة لزيارتك <span class="heart">💗</span></div>
       </div>
     </div>
 
-    <!-- Invoice -->
-    <div class="card" id="invoiceArea">
-      <div class="invoiceTitle">فاتورتك</div>
+    <!-- الجزء اللي نحبوه يكون قدامك -->
+    <div class="card grow" id="invoiceArea">
+      <div class="invoiceHead">فاتورتك</div>
 
-      <!-- Required fields first -->
-      <div class="section grid" style="padding-bottom:10px">
-        <div>
-          <label for="fullName">الاسم واللقب (إجباري)</label>
-          <input id="fullName" placeholder="" />
-        </div>
-        <div>
-          <label for="address">السكن (إجباري)</label>
-          <input id="address" placeholder="" />
-        </div>
-        <div>
-          <label for="phone">رقم الهاتف (إجباري)</label>
-          <input id="phone" inputmode="tel" placeholder="" />
+      <div class="section" style="padding-bottom:10px">
+        <div class="invGrid">
+          <div>
+            <label for="fullName">الاسم واللقب (إجباري)</label>
+            <input id="fullName" placeholder="" />
+          </div>
+          <div>
+            <label for="address">السكن (إجباري)</label>
+            <input id="address" placeholder="" />
+          </div>
+          <div>
+            <label for="phone">رقم الهاتف (إجباري)</label>
+            <input id="phone" inputmode="tel" placeholder="" />
+          </div>
         </div>
       </div>
 
       <div class="section" style="padding-top:0">
         <div class="invoiceCard" id="invoiceCard">
-          <div class="invoiceTitle" style="border-bottom:1px dashed #ffb7d1; background:#ffe1ee">فاتورتك</div>
+          <div class="invoiceHead" style="border-bottom:1px dashed #ffb7d1; background:#ffe1ee">فاتورتك</div>
 
           <div class="invBody">
             <div class="invRow">
@@ -290,16 +307,13 @@
         </div>
 
         <div class="actions">
-          <button class="btnClear" id="clearBtn" type="button">مسح</button>
           <button class="btnDownload" id="downloadBtn" type="button">تنزيل الفاتورة (صورة)</button>
+          <button class="btnClear" id="clearBtn" type="button">مسح</button>
         </div>
-
-        <div class="note" id="smallThanks">شكراً يا سكرة لزيارتك <span class="heart">💗</span></div>
       </div>
     </div>
   </div>
 
-  <!-- html2canvas for image download -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
@@ -308,42 +322,34 @@
     const PROFIT_PER_PRODUCT = 250;
     const PACKAGING_FEE = 50;
 
-    // Nicknames map (كل الأسماء اللي كتبتيهم + اللي زدتيهم)
     const nickMap = new Map([
       ["رحاب","رحوبة"],
       ["فرح","فرفر"],
       ["سندس","سوسو"],
       ["امال","امولة"],
       ["هنادي","هنودة"],
-      ["اية","ايوتة"],
-      ["آية","ايوتة"],
+      ["اية","ايوتة"], ["آية","ايوتة"],
       ["خليصة","خلوصة"],
       ["تقوى","تقو"],
-      ["اكرام","كروم"],
-      ["إكرام","كروم"],
+      ["اكرام","كروم"], ["إكرام","كروم"],
       ["ضحى","ضحو"],
       ["رحمة","رحومة"],
       ["شيماء","شيمو"],
-      ["اشواق","شوشو"],
-      ["أشواق","شوشو"],
+      ["اشواق","شوشو"], ["أشواق","شوشو"],
       ["دعاء","دعدع"],
       ["بسملة","بسومة"],
       ["سلمى","سلموش"],
       ["لبنى","لبناتي"],
-      ["اسراء","ايسري"],
-      ["إسراء","ايسري"],
+      ["اسراء","ايسري"], ["إسراء","ايسري"],
       ["بتول","بتولي"],
       ["روميسة","رومي"],
-      ["ايمان","امونة"],
-      ["إيمان","امونة"],
+      ["ايمان","امونة"], ["إيمان","امونة"],
       ["حنين","حنون"],
       ["رويدة","رورو"],
       ["هديل","هدولة"],
       ["كندة","كندوش"],
-      ["اريج","جوجا"],
-      ["أريج","جوجا"],
-      ["امينة","امينو"],
-      ["أمينة","امينو"],
+      ["اريج","جوجا"], ["أريج","جوجا"],
+      ["امينة","امينو"], ["أمينة","امينو"],
       ["صونيا","صنصن"],
       ["سعاد","سوسو"],
       ["مروى","ميمي"],
@@ -353,17 +359,14 @@
       ["ندى","ندوش"],
       ["منة","منوش"],
       ["فتيحة","فتوح"],
-      ["اسيل","اسولة"],
-      ["أسيل","اسولة"],
+      ["اسيل","اسولة"], ["أسيل","اسولة"],
       ["وردة","وردوش"],
       ["وئام","وئوم"],
       ["وصال","وصول"],
-      ["ايناس","انوسة"],
-      ["إيناس","انوسة"],
+      ["ايناس","انوسة"], ["إيناس","انوسة"],
       ["مرام","مروش"],
     ]);
 
-    // Elements
     const elProducts = document.getElementById("products");
     const elPieces   = document.getElementById("pieces"); // ما يدخلش في الحساب
     const elUsd      = document.getElementById("usd");
@@ -387,7 +390,6 @@
 
     function toNumber(val){
       if(!val) return 0;
-      // allow comma as decimal
       val = String(val).replace(",", ".").replace(/[^\d.]/g, "");
       const n = parseFloat(val);
       return Number.isFinite(n) ? n : 0;
@@ -401,14 +403,11 @@
     }
 
     function formatDZD(n){
-      // keep as integer
       const x = Math.max(0, Math.round(n));
-      // Arabic digits optional: keep normal
       return x.toLocaleString("en-US") + " دج";
     }
 
     function formatMeaning(n){
-      // 1000دج => 100 ألف  (يعني = دج/10)
       const x = Math.max(0, Math.round(n));
       const alf = Math.round(x / 10);
       return "يعني: " + alf.toLocaleString("en-US") + " ألف";
@@ -417,19 +416,17 @@
     function normalizeName(s){
       return (s || "")
         .trim()
-        .replace(/ـ/g, "") // tatweel
+        .replace(/ـ/g, "")
         .replace(/\s+/g, " ");
     }
 
     function firstNameFromFull(full){
       const t = normalizeName(full);
       if(!t) return "";
-      // take first token
       return t.split(" ")[0];
     }
 
     function fallbackNickname(firstName){
-      // أول حرفين + "وش"
       const n = normalizeName(firstName);
       if(!n) return "";
       const two = n.slice(0, 2);
@@ -457,14 +454,12 @@
       dzdText.textContent = formatDZD(totalDzd);
       meaningText.textContent = formatMeaning(totalDzd);
 
-      // invoice values
       invName.textContent = normalizeName(fullName.value) || "-";
       invAddr.textContent = normalizeName(address.value) || "-";
       invPhone.textContent = normalizeName(phone.value) || "-";
       invProducts.textContent = p ? String(p) : "-";
       invTotal.textContent = formatDZD(totalDzd);
 
-      // thank line (only when name exists)
       const nameOk = normalizeName(fullName.value);
       if(nameOk){
         const nick = getNickname(nameOk);
@@ -474,7 +469,6 @@
       }
     }
 
-    // Smooth updates (no lag)
     let rafId = null;
     function scheduleUpdate(){
       if(rafId) cancelAnimationFrame(rafId);
@@ -484,11 +478,10 @@
       });
     }
 
-    // Events
     ["input","change","keyup"].forEach(evt=>{
       elProducts.addEventListener(evt, scheduleUpdate);
       elUsd.addEventListener(evt, scheduleUpdate);
-      elPieces.addEventListener(evt, scheduleUpdate); // ما يدخلش في الحساب، لكن نخليه يحدّث الفاتورة
+      elPieces.addEventListener(evt, scheduleUpdate);
       fullName.addEventListener(evt, scheduleUpdate);
       address.addEventListener(evt, scheduleUpdate);
       phone.addEventListener(evt, scheduleUpdate);
@@ -506,7 +499,6 @@
     });
 
     downloadBtn.addEventListener("click", async ()=>{
-      // require required fields
       const n = normalizeName(fullName.value);
       const a = normalizeName(address.value);
       const ph = normalizeName(phone.value);
@@ -517,8 +509,6 @@
       }
 
       const node = document.getElementById("invoiceCard");
-
-      // render as image
       const canvas = await html2canvas(node, {
         backgroundColor: "#ffffff",
         scale: 2,
@@ -531,8 +521,7 @@
       link.click();
     });
 
-    // initial
     updateUI();
   </script>
 </body>
-  </html>
+      </html>
