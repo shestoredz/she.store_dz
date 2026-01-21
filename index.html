@@ -1,310 +1,314 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>she.store_dz</title>
 
-  <!-- خط عربي لطيف -->
+  <!-- Font (optional) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --pink1:#ff6fb5;
-      --pink2:#ffc6df;
-      --ink:#222;
-      --muted:#666;
-      --bg:#fff6fb;
+      --pink-1:#ffe8f1;
+      --pink-2:#ffd3e4;
+      --pink-3:#ff9ec6;
+      --pink-4:#ff6aa8;
+      --pink-5:#ff3f90;
+      --pink-dark:#d81b73;
+      --text:#2a2a2a;
+      --muted:#6b6b6b;
       --card:#ffffff;
-      --border:#ffd1e6;
-      --shadow: 0 10px 24px rgba(0,0,0,.08);
-      --radius:18px;
+      --line:#ffd0e1;
+      --shadow: 0 10px 30px rgba(216,27,115,.12);
+      --radius: 18px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:"Cairo", system-ui, -apple-system, Segoe UI, Arial;
-      background: radial-gradient(1000px 600px at 10% 0%, #ffe1f0 0%, transparent 60%),
-                  radial-gradient(900px 500px at 90% 10%, #ffe7f4 0%, transparent 55%),
-                  var(--bg);
-      color:var(--ink);
-      padding:22px 14px 40px;
-    }
-    .wrap{max-width:820px;margin:0 auto;}
-    .hero{
-      background: linear-gradient(90deg, var(--pink1), #ff9acb);
-      color:white;
-      border-radius:22px;
-      padding:18px 16px;
-      text-align:center;
-      box-shadow: var(--shadow);
-      font-weight:700;
-      font-size:18px;
+      font-family: "Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--pink-1), #fff 45%, #fff);
+      color:var(--text);
     }
 
-    .grid{
-      margin-top:14px;
-      display:grid;
-      gap:14px;
-      grid-template-columns: 1fr;
+    .wrap{
+      width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 16px 14px 28px;
     }
-    @media(min-width:860px){
-      .grid{grid-template-columns: 1fr 1fr;}
+
+    .header{
+      background: linear-gradient(90deg, var(--pink-4), var(--pink-5));
+      color:#fff;
+      border-radius: 22px;
+      padding: 16px 14px;
+      text-align:center;
+      box-shadow: var(--shadow);
+      font-weight: 600;
+      letter-spacing:.2px;
+      font-size: 18px; /* متوسط */
     }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
+      margin-top: 14px;
+      background: var(--card);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      border: 1px solid var(--line);
       overflow:hidden;
     }
-    .cardHead{
-      padding:14px 14px 10px;
-      border-bottom:1px dashed var(--border);
-      font-weight:700;
-      color:#333;
-      background:linear-gradient(180deg,#fff, #fff8fc);
+
+    .section{
+      padding: 14px;
     }
-    .cardBody{padding:14px;}
-    .row{display:grid;gap:10px;margin-bottom:10px;}
-    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+
+    .grid{
+      display:grid;
+      gap: 10px;
+    }
+
+    label{
+      display:block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
     input{
       width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid #ffd5ea;
-      outline:none;
-      font-family:inherit;
-      font-size:15px;
-      background:#fff;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid #ffd3e4;
+      outline: none;
+      font-size: 15px;
+      background: #fff;
+      transition:.15s ease;
     }
-    input:focus{border-color:#ff93c8; box-shadow:0 0 0 4px rgba(255,111,181,.15)}
-    .two{grid-template-columns:1fr 1fr}
-    .hint{font-size:12px;color:#7a7a7a;margin-top:6px}
+    input:focus{
+      border-color: var(--pink-4);
+      box-shadow: 0 0 0 4px rgba(255,106,168,.15);
+    }
 
-    .resultBox{
-      margin-top:10px;
-      padding:12px 12px;
-      border:1px solid #ffd5ea;
-      border-radius:14px;
-      background:#fff9fd;
+    .row2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
-    .big{
-      font-size:22px;
-      font-weight:800;
-      color:#111;
-      margin:0;
+
+    .dzdBox{
+      margin-top: 10px;
+      background: linear-gradient(90deg, #f065a8, var(--pink-dark));
+      color:#fff;
+      border-radius: 18px;
+      padding: 14px 14px;
+      text-align:center;
     }
-    .small{
-      margin:6px 0 0;
-      font-size:13px;
-      color:#444;
+    .dzdValue{
+      font-size: 26px;   /* متوسط واضح */
+      font-weight: 800;
+      line-height: 1.1;
+      margin: 0;
     }
+    .meaning{
+      margin: 6px 0 0;
+      font-size: 14px;
+      opacity:.95;
+      font-weight: 600;
+    }
+
+    .invoiceTitle{
+      background: var(--pink-2);
+      padding: 12px 14px;
+      font-weight: 700;
+      text-align:center;
+      border-bottom: 1px dashed #ffb7d1;
+      font-size: 16px;
+    }
+
+    .invoiceCard{
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #ffd0e1;
+      overflow:hidden;
+    }
+
+    .invBody{
+      padding: 12px 14px;
+    }
+
+    .invRow{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #ffe0ec;
+      font-size: 14px;
+    }
+    .invRow:last-child{border-bottom:none}
+    .invKey{color:#6a6a6a; font-weight:600}
+    .invVal{font-weight:700; color:#222; text-align:left; direction:ltr}
+
+    .thank{
+      text-align:center;
+      padding: 12px 14px 16px;
+      color:#333;
+      font-weight: 700;
+    }
+    .heart{color: var(--pink-dark);}
 
     .actions{
       display:flex;
-      gap:10px;
-      margin-top:12px;
-      flex-wrap:wrap;
+      gap: 10px;
+      padding: 12px 14px 14px;
     }
-    .btn{
+    button{
+      flex:1;
       border:none;
-      border-radius:16px;
-      padding:12px 14px;
-      font-family:inherit;
+      border-radius: 16px;
+      padding: 12px 10px;
+      font-weight: 800;
       cursor:pointer;
-      font-weight:700;
-      font-size:14px;
+      font-size: 15px;
     }
-    .btnPrimary{
-      background:linear-gradient(90deg,var(--pink1),#ff9acb);
-      color:white;
-      box-shadow:0 10px 22px rgba(255,111,181,.28);
+    .btnClear{
+      background: #fff;
+      border: 1px solid #ffb7d1;
+      color: #c2185b;
     }
-    .btnGhost{
-      background:#fff;
-      border:1px solid #ffd5ea;
-      color:#333;
+    .btnDownload{
+      background: linear-gradient(90deg, var(--pink-4), var(--pink-5));
+      color:#fff;
+      box-shadow: 0 10px 22px rgba(255,63,144,.18);
     }
 
-    /* الفاتورة */
-    .invoiceShell{
-      padding:14px;
-    }
-    #invoice{
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid #ffd5ea;
-      background:#fff;
-    }
-    .invTop{
-      background:linear-gradient(90deg,#ffe0ef,#ffd1e6);
-      padding:16px 14px;
+    .note{
       text-align:center;
-      font-weight:800;
-      color:#3a3a3a;
-      position:relative;
+      margin-top: 10px;
+      color:#c2185b;
+      font-weight:700;
     }
-    .invTop::after{
-      content:"";
-      position:absolute;
-      inset:auto 0 0 0;
-      height:10px;
-      background:linear-gradient(90deg, transparent, rgba(255,111,181,.25), transparent);
+
+    /* نخلي كلشي متوسط ومرتب */
+    .spacer{height:2px}
+
+    /* Small devices */
+    @media (max-width:360px){
+      .dzdValue{font-size:24px}
+      .header{font-size:17px}
+      input{font-size:14px}
     }
-    .invBody{
-      display:grid;
-      grid-template-columns: 1fr;
-    }
-    .invHalfPink{
-      background:linear-gradient(180deg,#fff0f8,#ffffff);
-      padding:14px;
-      border-top:1px dashed #ffd5ea;
-    }
-    .invLine{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 0;
-      border-bottom:1px solid #ffe3f1;
-      font-size:14px;
-      color:#333;
-    }
-    .invLine:last-child{border-bottom:none}
-    .invKey{color:#555}
-    .invVal{font-weight:800;color:#111}
-    .invFooter{
-      padding:14px 12px 16px;
-      text-align:center;
-      font-weight:800;
-      color:#444;
-    }
-    .heart{color:#ff4aa2}
-    .mono{font-variant-numeric: tabular-nums;}
-    .muted{color:#777;font-weight:600}
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="hero">مرحباً بكِ في she.store_dz</div>
+    <div class="header">مرحباً بكِ في she.store_dz</div>
 
-    <div class="grid">
-      <!-- الحاسبة -->
-      <div class="card">
-        <div class="cardHead">الحاسبة</div>
-        <div class="cardBody">
-          <div class="row">
-            <div>
-              <label for="productsCount">عدد المنتج</label>
-              <input id="productsCount" type="number" min="1" step="1" placeholder="" />
-            </div>
-
-            <div>
-              <label for="piecesCount">عدد القطع</label>
-              <input id="piecesCount" type="number" min="1" step="1" placeholder="" />
-              <!-- ماكان حتى ملاحظة تقول مايدخلش فالحساب -->
-            </div>
-
-            <div>
-              <label for="usdTotal">السعر الإجمالي بالدولار ($)</label>
-              <input id="usdTotal" type="number" min="0" step="0.01" placeholder="" />
-            </div>
-
-            <div class="resultBox">
-              <p class="big mono" id="dzdOut">0 دج</p>
-              <p class="small mono" id="meaningOut">يعني: 0 ألف</p>
-            </div>
+    <!-- Inputs -->
+    <div class="card">
+      <div class="section grid">
+        <div class="row2">
+          <div>
+            <label for="products">عدد المنتج</label>
+            <input id="products" inputmode="numeric" placeholder="" />
           </div>
-
-          <div class="actions">
-            <button class="btn btnGhost" id="resetBtn">مسح</button>
+          <div>
+            <label for="pieces">عدد القطع</label>
+            <input id="pieces" inputmode="numeric" placeholder="" />
           </div>
+        </div>
+
+        <div>
+          <label for="usd">السعر الإجمالي بالدولار ($)</label>
+          <input id="usd" inputmode="decimal" placeholder="" />
+        </div>
+
+        <!-- DZD result -->
+        <div class="dzdBox" aria-live="polite">
+          <p class="dzdValue" id="dzdText">0 دج</p>
+          <p class="meaning" id="meaningText">يعني: 0 ألف</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice -->
+    <div class="card" id="invoiceArea">
+      <div class="invoiceTitle">فاتورتك</div>
+
+      <!-- Required fields first -->
+      <div class="section grid" style="padding-bottom:10px">
+        <div>
+          <label for="fullName">الاسم واللقب (إجباري)</label>
+          <input id="fullName" placeholder="" />
+        </div>
+        <div>
+          <label for="address">السكن (إجباري)</label>
+          <input id="address" placeholder="" />
+        </div>
+        <div>
+          <label for="phone">رقم الهاتف (إجباري)</label>
+          <input id="phone" inputmode="tel" placeholder="" />
         </div>
       </div>
 
-      <!-- الفاتورة -->
-      <div class="card">
-        <div class="cardHead">فاتورتك</div>
-        <div class="invoiceShell">
-          <div id="invoice">
-            <div class="invTop">فاتورتك</div>
+      <div class="section" style="padding-top:0">
+        <div class="invoiceCard" id="invoiceCard">
+          <div class="invoiceTitle" style="border-bottom:1px dashed #ffb7d1; background:#ffe1ee">فاتورتك</div>
 
-            <div class="invHalfPink">
-              <div class="invLine">
-                <span class="invKey">الاسم واللقب <span class="muted">(إجباري)</span></span>
-                <span class="invVal" id="invName">-</span>
-              </div>
-              <div class="invLine">
-                <span class="invKey">السكن <span class="muted">(إجباري)</span></span>
-                <span class="invVal" id="invAddress">-</span>
-              </div>
-              <div class="invLine">
-                <span class="invKey">رقم الهاتف <span class="muted">(إجباري)</span></span>
-                <span class="invVal mono" id="invPhone">-</span>
-              </div>
-
-              <div class="invLine">
-                <span class="invKey">عدد المنتجات</span>
-                <span class="invVal mono" id="invProducts">-</span>
-              </div>
-              <div class="invLine">
-                <span class="invKey">المجموع النهائي</span>
-                <span class="invVal mono" id="invTotal">0 دج</span>
-              </div>
-
-              <div class="invFooter">
-                <span id="thanksLine">شكراً لكِ <span class="heart">💗</span></span>
-              </div>
+          <div class="invBody">
+            <div class="invRow">
+              <div class="invKey">الاسم واللقب</div>
+              <div class="invVal" id="invName">-</div>
+            </div>
+            <div class="invRow">
+              <div class="invKey">السكن</div>
+              <div class="invVal" id="invAddr">-</div>
+            </div>
+            <div class="invRow">
+              <div class="invKey">رقم الهاتف</div>
+              <div class="invVal" id="invPhone">-</div>
+            </div>
+            <div class="invRow">
+              <div class="invKey">عدد المنتجات</div>
+              <div class="invVal" id="invProducts">-</div>
+            </div>
+            <div class="invRow">
+              <div class="invKey">المجموع النهائي</div>
+              <div class="invVal" id="invTotal">0 دج</div>
             </div>
           </div>
 
-          <div class="actions">
-            <button class="btn btnPrimary" id="downloadBtn">تنزيل الفاتورة (صورة)</button>
-            <button class="btn btnGhost" id="resetBtn2">مسح</button>
+          <div class="thank" id="thankLine">
+            شكراً لكِ <span class="heart">💗</span>
           </div>
-
-          <div style="margin-top:10px;text-align:center;font-weight:700;color:#444;">
-            شكراً يا سكرة لزيارتك <span class="heart">💗</span>
-          </div>
-
-          <div style="margin-top:10px;">
-            <div class="row">
-              <div class="two row">
-                <div>
-                  <label for="fullName">الاسم واللقب (إجباري)</label>
-                  <input id="fullName" type="text" />
-                </div>
-                <div>
-                  <label for="phone">رقم الهاتف (إجباري)</label>
-                  <input id="phone" type="tel" />
-                </div>
-              </div>
-              <div>
-                <label for="address">السكن (إجباري)</label>
-                <input id="address" type="text" />
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        <div class="actions">
+          <button class="btnClear" id="clearBtn" type="button">مسح</button>
+          <button class="btnDownload" id="downloadBtn" type="button">تنزيل الفاتورة (صورة)</button>
+        </div>
+
+        <div class="note" id="smallThanks">شكراً يا سكرة لزيارتك <span class="heart">💗</span></div>
       </div>
     </div>
   </div>
 
-  <!-- html2canvas لتنزيل الفاتورة كصورة -->
+  <!-- html2canvas for image download -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
-    // ===== إعدادات الحساب (مخفيّة) =====
-    const USD_TO_DZD = 270;        // ما نكتبوش في الواجهة
-    const PROFIT_PER_PRODUCT = 250; // ما نكتبوش في الواجهة
-    const PACKAGING_ONCE = 50;      // ما نكتبوش في الواجهة
+    // ====== (Hidden logic only) ======
+    const USD_TO_DZD = 270;
+    const PROFIT_PER_PRODUCT = 250;
+    const PACKAGING_FEE = 50;
 
-    // ===== دلع حسب اللستة =====
+    // Nicknames map (كل الأسماء اللي كتبتيهم + اللي زدتيهم)
     const nickMap = new Map([
       ["رحاب","رحوبة"],
       ["فرح","فرفر"],
@@ -316,6 +320,7 @@
       ["خليصة","خلوصة"],
       ["تقوى","تقو"],
       ["اكرام","كروم"],
+      ["إكرام","كروم"],
       ["ضحى","ضحو"],
       ["رحمة","رحومة"],
       ["شيماء","شيمو"],
@@ -351,150 +356,169 @@
       ["اسيل","اسولة"],
       ["أسيل","اسولة"],
       ["وردة","وردوش"],
-      
-      ["وئام","وئوم"]
+      ["وئام","وئوم"],
       ["وصال","وصول"],
-["ايناس","انوسة"],
-["إيناس","انوسة"],
-["مرام","مروش"],
+      ["ايناس","انوسة"],
+      ["إيناس","انوسة"],
+      ["مرام","مروش"],
     ]);
 
-    // fallback: نكرر أول حرفين (صفصف style)
-    function fallbackNick(name){
-      const clean = (name || "").trim();
-      if(!clean) return "";
-      const chars = [...clean];
-      if(chars.length === 1) return chars[0] + chars[0];
-      const firstTwo = chars[0] + chars[1];
-      return firstTwo + firstTwo; // مثال: صليحة -> صلصل
-    }
+    // Elements
+    const elProducts = document.getElementById("products");
+    const elPieces   = document.getElementById("pieces"); // ما يدخلش في الحساب
+    const elUsd      = document.getElementById("usd");
 
-    function extractFirstName(fullName){
-      const s = (fullName || "").trim();
-      if(!s) return "";
-      // أول كلمة
-      return s.split(/\s+/)[0];
-    }
-
-    function getNicknameFromFullName(fullName){
-      const first = extractFirstName(fullName);
-      if(!first) return "";
-      if(nickMap.has(first)) return nickMap.get(first);
-      return fallbackNick(first);
-    }
-
-    // ===== تنسيق أرقام =====
-    function roundDzd(n){
-      // نخليها عدد صحيح
-      return Math.round(n);
-    }
-
-    function formatDzd(n){
-      const v = roundDzd(n);
-      return v.toLocaleString("ar-DZ") + " دج";
-    }
-
-    function toMeaningThousands(dzd){
-      // مثال: 1000 -> 100 ألف ، 500 -> 50 ألف ، 370 -> 37 ألف
-      const v = roundDzd(dzd);
-      const k = Math.round(v / 10); // لأن 1000دج = 100 ألف => 1000/10=100
-      return "يعني: " + k.toLocaleString("ar-DZ") + " ألف";
-    }
-
-    // ===== عناصر الصفحة =====
-    const productsCount = document.getElementById("productsCount");
-    const piecesCount   = document.getElementById("piecesCount");
-    const usdTotal      = document.getElementById("usdTotal");
-
-    const dzdOut     = document.getElementById("dzdOut");
-    const meaningOut = document.getElementById("meaningOut");
+    const dzdText = document.getElementById("dzdText");
+    const meaningText = document.getElementById("meaningText");
 
     const fullName = document.getElementById("fullName");
-    const phone    = document.getElementById("phone");
-    const address  = document.getElementById("address");
+    const address = document.getElementById("address");
+    const phone = document.getElementById("phone");
 
-    const invName     = document.getElementById("invName");
-    const invPhone    = document.getElementById("invPhone");
-    const invAddress  = document.getElementById("invAddress");
+    const invName = document.getElementById("invName");
+    const invAddr = document.getElementById("invAddr");
+    const invPhone = document.getElementById("invPhone");
     const invProducts = document.getElementById("invProducts");
-    const invTotal    = document.getElementById("invTotal");
-    const thanksLine  = document.getElementById("thanksLine");
+    const invTotal = document.getElementById("invTotal");
+    const thankLine = document.getElementById("thankLine");
 
-    const resetBtn  = document.getElementById("resetBtn");
-    const resetBtn2 = document.getElementById("resetBtn2");
+    const clearBtn = document.getElementById("clearBtn");
     const downloadBtn = document.getElementById("downloadBtn");
 
-    function computeTotalDzd(){
-      const p = Math.max(0, parseInt(productsCount.value || "0", 10) || 0);
-      const usd = Math.max(0, parseFloat(usdTotal.value || "0") || 0);
-
-      // الحساب المخفي:
-      // DZD = (usd * 270) + (عدد المنتجات * 250) + 50
-      const base = usd * USD_TO_DZD;
-      const profit = p * PROFIT_PER_PRODUCT;
-      const pack = (p > 0 || usd > 0) ? PACKAGING_ONCE : 0; // تتزاد غير إذا كاين طلب
-      return base + profit + pack;
+    function toNumber(val){
+      if(!val) return 0;
+      // allow comma as decimal
+      val = String(val).replace(",", ".").replace(/[^\d.]/g, "");
+      const n = parseFloat(val);
+      return Number.isFinite(n) ? n : 0;
     }
 
-    function refresh(){
-      const total = computeTotalDzd();
+    function toInt(val){
+      if(!val) return 0;
+      val = String(val).replace(/[^\d]/g, "");
+      const n = parseInt(val, 10);
+      return Number.isFinite(n) ? n : 0;
+    }
 
-      dzdOut.textContent = formatDzd(total);
-      meaningOut.textContent = toMeaningThousands(total);
+    function formatDZD(n){
+      // keep as integer
+      const x = Math.max(0, Math.round(n));
+      // Arabic digits optional: keep normal
+      return x.toLocaleString("en-US") + " دج";
+    }
 
-      const nameVal = (fullName.value || "").trim();
-      const phoneVal = (phone.value || "").trim();
-      const addressVal = (address.value || "").trim();
-      const p = Math.max(0, parseInt(productsCount.value || "0", 10) || 0);
+    function formatMeaning(n){
+      // 1000دج => 100 ألف  (يعني = دج/10)
+      const x = Math.max(0, Math.round(n));
+      const alf = Math.round(x / 10);
+      return "يعني: " + alf.toLocaleString("en-US") + " ألف";
+    }
 
-      invName.textContent = nameVal ? nameVal : "-";
-      invPhone.textContent = phoneVal ? phoneVal : "-";
-      invAddress.textContent = addressVal ? addressVal : "-";
-      invProducts.textContent = p ? p.toLocaleString("ar-DZ") : "-";
-      invTotal.textContent = formatDzd(total);
+    function normalizeName(s){
+      return (s || "")
+        .trim()
+        .replace(/ـ/g, "") // tatweel
+        .replace(/\s+/g, " ");
+    }
 
-      // شكراً لكِ + دلع (إذا كاين اسم)
-      if(nameVal){
-        const nick = getNicknameFromFullName(nameVal);
-        if(nick){
-          thanksLine.innerHTML = `شكراً لكِ <span class="heart">${nick}</span> <span class="heart">💗</span>`;
-        }else{
-          thanksLine.innerHTML = `شكراً لكِ <span class="heart">💗</span>`;
-        }
+    function firstNameFromFull(full){
+      const t = normalizeName(full);
+      if(!t) return "";
+      // take first token
+      return t.split(" ")[0];
+    }
+
+    function fallbackNickname(firstName){
+      // أول حرفين + "وش"
+      const n = normalizeName(firstName);
+      if(!n) return "";
+      const two = n.slice(0, 2);
+      return two + "وش";
+    }
+
+    function getNickname(full){
+      const first = firstNameFromFull(full);
+      if(!first) return "";
+      if(nickMap.has(first)) return nickMap.get(first);
+      return fallbackNickname(first);
+    }
+
+    function calcTotalDZD(){
+      const p = toInt(elProducts.value);
+      const usd = toNumber(elUsd.value);
+      const total = (usd * USD_TO_DZD) + (p * PROFIT_PER_PRODUCT) + PACKAGING_FEE;
+      return Math.max(0, Math.round(total));
+    }
+
+    function updateUI(){
+      const p = toInt(elProducts.value);
+      const totalDzd = calcTotalDZD();
+
+      dzdText.textContent = formatDZD(totalDzd);
+      meaningText.textContent = formatMeaning(totalDzd);
+
+      // invoice values
+      invName.textContent = normalizeName(fullName.value) || "-";
+      invAddr.textContent = normalizeName(address.value) || "-";
+      invPhone.textContent = normalizeName(phone.value) || "-";
+      invProducts.textContent = p ? String(p) : "-";
+      invTotal.textContent = formatDZD(totalDzd);
+
+      // thank line (only when name exists)
+      const nameOk = normalizeName(fullName.value);
+      if(nameOk){
+        const nick = getNickname(nameOk);
+        thankLine.innerHTML = `شكراً لكِ <span class="heart">${nick}</span> <span class="heart">💗</span>`;
       }else{
-        thanksLine.innerHTML = `شكراً لكِ <span class="heart">💗</span>`;
+        thankLine.innerHTML = `شكراً لكِ <span class="heart">💗</span>`;
       }
     }
 
-    // تحديث مباشر
-    [productsCount, piecesCount, usdTotal, fullName, phone, address].forEach(el=>{
-      el.addEventListener("input", refresh);
-    });
-
-    function resetAll(){
-      productsCount.value = "";
-      piecesCount.value = "";
-      usdTotal.value = "";
-      fullName.value = "";
-      phone.value = "";
-      address.value = "";
-      refresh();
+    // Smooth updates (no lag)
+    let rafId = null;
+    function scheduleUpdate(){
+      if(rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        updateUI();
+      });
     }
 
-    resetBtn.addEventListener("click", resetAll);
-    resetBtn2.addEventListener("click", resetAll);
+    // Events
+    ["input","change","keyup"].forEach(evt=>{
+      elProducts.addEventListener(evt, scheduleUpdate);
+      elUsd.addEventListener(evt, scheduleUpdate);
+      elPieces.addEventListener(evt, scheduleUpdate); // ما يدخلش في الحساب، لكن نخليه يحدّث الفاتورة
+      fullName.addEventListener(evt, scheduleUpdate);
+      address.addEventListener(evt, scheduleUpdate);
+      phone.addEventListener(evt, scheduleUpdate);
+    });
 
-    downloadBtn.addEventListener("click", async () => {
-      // نأكد الإجباري
-      const nameVal = (fullName.value || "").trim();
-      const phoneVal = (phone.value || "").trim();
-      const addressVal = (address.value || "").trim();
-      if(!nameVal || !phoneVal || !addressVal){
-        alert("من فضلك عمّري: الاسم واللقب + السكن + رقم الهاتف ✅");
+    clearBtn.addEventListener("click", ()=>{
+      elProducts.value = "";
+      elPieces.value = "";
+      elUsd.value = "";
+      fullName.value = "";
+      address.value = "";
+      phone.value = "";
+      scheduleUpdate();
+      window.scrollTo({top:0, behavior:"smooth"});
+    });
+
+    downloadBtn.addEventListener("click", async ()=>{
+      // require required fields
+      const n = normalizeName(fullName.value);
+      const a = normalizeName(address.value);
+      const ph = normalizeName(phone.value);
+
+      if(!n || !a || !ph){
+        alert("اكتبي: الاسم واللقب + السكن + رقم الهاتف");
         return;
       }
 
-      const node = document.getElementById("invoice");
+      const node = document.getElementById("invoiceCard");
+
+      // render as image
       const canvas = await html2canvas(node, {
         backgroundColor: "#ffffff",
         scale: 2,
@@ -502,14 +526,13 @@
       });
 
       const link = document.createElement("a");
-      const safeName = nameVal.replace(/[^\u0600-\u06FFa-zA-Z0-9\s-_]/g, "").trim().slice(0, 30) || "فاتورة";
-      link.download = `فاتورة-${safeName}.png`;
+      link.download = "فاتورة_she.store_dz.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
     });
 
-    // أول تحميل
-    refresh();
+    // initial
+    updateUI();
   </script>
 </body>
-                                                                            </html>
+  </html>
