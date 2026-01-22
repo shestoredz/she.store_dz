@@ -14,7 +14,6 @@
       --pink:#d81b73;
       --pinkLine:#f3c1d6;
       --muted:#7a7a7a;
-      --bg:#ffffff;
       --soft:#fff6fb;
     }
     *{box-sizing:border-box}
@@ -41,7 +40,7 @@
     }
 
     .box{
-      background: var(--bg);
+      background:#fff;
       border: 1px solid #ffd0e1;
       border-radius: 14px;
       padding: 10px;
@@ -56,7 +55,7 @@
 
     label{
       display:block;
-      color: #6f6f6f;
+      color:#6f6f6f;
       font-weight:800;
       font-size: 12px;
       margin-bottom: 6px;
@@ -103,25 +102,29 @@
       font-size: 13px;
     }
 
-    /* ===== الفاتورة (صغيّرة + نفس ستايل فرح) ===== */
-    .invoice{
+    /* ====== الفاتورة بالشكل تاع الصورة (بدون كادر) ====== */
+    .invoiceArea{
       background:#fff;
       border: 1px solid #ffd0e1;
       border-radius: 14px;
-      padding: 10px 12px;
+      padding: 10px;
     }
 
-    /* المدخلات فوق الفاتورة */
     .inputsBox{
       background:#fff;
       border: 1px solid #ffd0e1;
       border-radius: 12px;
       padding: 10px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    /* رأس صغير داخل الفاتورة المصوّرة */
-    .invMeta{
+    /* هذا هو الجزء اللي يتصوّر */
+    .paper{
+      background:#fff;
+      padding: 0;           /* بلا padding باش يجي كيما الصورة */
+    }
+
+    .metaRow{
       display:flex;
       justify-content:space-between;
       gap:10px;
@@ -131,59 +134,62 @@
       margin-bottom: 6px;
       line-height:1.35;
     }
-    .invMeta .l{ text-align:left; direction:ltr; }
+    .metaRow .l{ text-align:left; direction:ltr; }
 
-    .line{
+    .invLine{
       display:flex;
       justify-content:space-between;
-      align-items:center;
-      padding: 5px 0;   /* صغيّر */
-      border-bottom: 1px solid var(--pinkLine);
+      align-items:flex-end;
+      padding: 10px 0;                /* نفس تاع الصورة */
+      border-bottom: 2px solid var(--pinkLine);
     }
-    .label2{
+    .invLabel{
       color: var(--muted);
       font-weight:800;
-      font-size: 13px;
+      font-size: 18px;               /* كيما الصورة */
     }
-    .value2{
+    .invValue{
       color:#000;
       font-weight:900;
-      font-size: 14px;
-      text-align:left;
+      font-size: 22px;               /* كيما الصورة */
       direction:ltr;
+      text-align:left;
     }
-    .value2.ar{
+    .invValue.ar{
       direction:rtl;
       text-align:right;
     }
-    .total .value2{ font-size: 15px; }
+    .invValue.small{
+      font-size: 20px;
+    }
 
     .thanks{
       text-align:center;
-      margin-top: 8px;
-      font-size: 15px;
+      margin-top: 12px;
+      font-size: 30px;               /* شكراً كبيرة كيما الصورة */
       font-weight:900;
       color: var(--pink);
+      letter-spacing:.2px;
     }
     .note{
       text-align:center;
-      margin-top: 5px;
-      font-size: 12px;
+      margin-top: 8px;
+      font-size: 20px;
       font-weight:800;
-      color: #8b2d57;
-      line-height:1.45;
+      color:#8b2d57;
+      line-height:1.55;
     }
 
     .actions{
       display:flex;
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 10px;
     }
     button{
       flex:1;
       border:none;
       border-radius: 12px;
-      padding: 9px 10px;
+      padding: 10px 10px;
       font-weight:900;
       cursor:pointer;
       font-size: 13px;
@@ -230,11 +236,11 @@
       <div class="after">شكراً لكِ يا سكرة لزيارتك 💗</div>
     </div>
 
-    <!-- الفاتورة -->
-    <div class="invoice">
+    <!-- منطقة الفاتورة -->
+    <div class="invoiceArea">
       <!-- مدخلات الزبونة -->
       <div class="inputsBox">
-        <div style="display:grid; gap:8px">
+        <div style="display:grid; gap:10px">
           <div>
             <label for="fullName">الاسم واللقب (إجباري)</label>
             <input id="fullName" />
@@ -250,36 +256,43 @@
         </div>
       </div>
 
-      <!-- هذا الجزء يتصوّر ويتنزّل كصورة -->
-      <div id="invoiceShot">
-        <div class="invMeta">
+      <!-- يتصوّر كصورة -->
+      <div class="paper" id="invoiceShot">
+        <div class="metaRow">
           <div id="invNo">رقم الفاتورة: -</div>
           <div class="l" id="invDT">التاريخ: -<br>الوقت: -</div>
         </div>
 
-        <div class="line">
-          <div class="value2 ar" id="invName">-</div>
-          <div class="label2">الاسم واللقب</div>
+        <div class="invLine">
+          <div class="invLabel">الاسم واللقب</div>
+          <div class="invValue ar" id="invName">-</div>
         </div>
-        <div class="line">
-          <div class="value2 ar" id="invAddr">-</div>
-          <div class="label2">السكن</div>
+
+        <div class="invLine">
+          <div class="invLabel">السكن</div>
+          <div class="invValue ar" id="invAddr">-</div>
         </div>
-        <div class="line">
-          <div class="value2" id="invPhone">-</div>
-          <div class="label2">رقم الهاتف</div>
+
+        <div class="invLine">
+          <div class="invLabel">رقم الهاتف</div>
+          <div class="invValue" id="invPhone">-</div>
         </div>
-        <div class="line">
-          <div class="value2" id="invProducts">1</div>
-          <div class="label2">عدد المنتجات</div>
+
+        <div class="invLine">
+          <div class="invLabel">عدد المنتجات</div>
+          <div class="invValue small" id="invProducts">1</div>
         </div>
-        <div class="line total">
-          <div class="value2" id="invTotal">0 دج</div>
-          <div class="label2">المجموع النهائي</div>
+
+        <div class="invLine">
+          <div class="invLabel">المجموع النهائي</div>
+          <div class="invValue" id="invTotal">0 دج</div>
         </div>
 
         <div class="thanks" id="thankLine">شكراً لكِ 💗</div>
-        <div class="note">عند موافقتك للشراء ارسلي رابط سلة مع صورة الفاتورة في الخاص ✅📱</div>
+
+        <div class="note">
+          عند موافقتك للشراء ارسلي رابط سلة مع صورة الفاتورة في الخاص ✅📱
+        </div>
       </div>
 
       <div class="actions">
@@ -292,60 +305,27 @@
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
-    // قيم مخفية (ما تبانش للزبون)
+    // قيم مخفية
     const USD_TO_DZD = 270;
     const PROFIT_PER_PRODUCT = 250;
     const PACKAGING_FEE = 50;
 
-    // ====== دلع البنات كامل + إضافات ======
     const nickMap = new Map([
-      ["رحاب","رحوبة"],
-      ["فرح","فرفر"],
-      ["سندس","سوسو"],
-      ["امال","امولة"], ["آمال","امولة"],
-      ["هنادي","هنودة"],
-      ["اية","ايوتة"], ["آية","ايوتة"],
-      ["خليصة","خلوصة"],
-      ["تقوى","تقو"],
-      ["اكرام","كروم"], ["إكرام","كروم"],
-      ["ضحى","ضحو"],
-      ["رحمة","رحومة"],
-      ["شيماء","شيمو"],
-      ["اشواق","شوشو"], ["أشواق","شوشو"],
-      ["دعاء","دعدع"],
-      ["بسملة","بسومة"],
-      ["سلمى","سلموش"],
-      ["لبنى","لبناتي"],
-      ["اسراء","ايسري"], ["إسراء","ايسري"],
-      ["بتول","بتولي"],
-      ["روميسة","رومي"],
-      ["ايمان","امونة"], ["إيمان","امونة"],
-      ["حنين","حنون"],
-      ["رويدة","رورو"],
-      ["هديل","هدولة"],
-      ["كندة","كندوش"],
-      ["اريج","جوجا"], ["أريج","جوجا"],
-      ["امينة","امينو"], ["أمينة","امينو"],
-      ["صونيا","صنصن"],
-      ["سعاد","سوسو"],
-      ["مروى","ميمي"],
-      ["مريم","مريومة"],
-      ["جهاد","جهودة"],
-      ["نسرين","نسرينة"],
-      ["ندى","ندوش"],
-      ["منة","منوش"],
-      ["فتيحة","فتوح"],
-      ["اسيل","اسولة"], ["أسيل","اسولة"],
-      ["وردة","وردوش"],
-      ["وئام","وئوم"],
-      ["وصال","وصول"],
-      ["ايناس","انوسة"], ["إيناس","انوسة"],
-      ["مرام","مروش"],
-      ["عواطف","عطوفتي"]
+      ["رحاب","رحوبة"],["فرح","فرفر"],["سندس","سوسو"],["امال","امولة"],["آمال","امولة"],
+      ["هنادي","هنودة"],["اية","ايوتة"],["آية","ايوتة"],["خليصة","خلوصة"],["تقوى","تقو"],
+      ["اكرام","كروم"],["إكرام","كروم"],["ضحى","ضحو"],["رحمة","رحومة"],["شيماء","شيمو"],
+      ["اشواق","شوشو"],["أشواق","شوشو"],["دعاء","دعدع"],["بسملة","بسومة"],["سلمى","سلموش"],
+      ["لبنى","لبناتي"],["اسراء","ايسري"],["إسراء","ايسري"],["بتول","بتولي"],["روميسة","رومي"],
+      ["ايمان","امونة"],["إيمان","امونة"],["حنين","حنون"],["رويدة","رورو"],["هديل","هدولة"],
+      ["كندة","كندوش"],["اريج","جوجا"],["أريج","جوجا"],["امينة","امينو"],["أمينة","امينو"],
+      ["صونيا","صنصن"],["سعاد","سوسو"],["مروى","ميمي"],["مريم","مريومة"],["جهاد","جهودة"],
+      ["نسرين","نسرينة"],["ندى","ندوش"],["منة","منوش"],["فتيحة","فتوح"],["اسيل","اسولة"],
+      ["أسيل","اسولة"],["وردة","وردوش"],["وئام","وئوم"],["وصال","وصول"],["ايناس","انوسة"],
+      ["إيناس","انوسة"],["مرام","مروش"],["عواطف","عطوفتي"]
     ]);
 
     const elProducts = document.getElementById("products");
-    const elPieces   = document.getElementById("pieces"); // ما يدخلش في الحساب
+    const elPieces   = document.getElementById("pieces");
     const elUsd      = document.getElementById("usd");
 
     const dzdText = document.getElementById("dzdText");
@@ -368,7 +348,6 @@
     const clearBtn = document.getElementById("clearBtn");
     const downloadBtn = document.getElementById("downloadBtn");
 
-    // رقم فاتورة ثابت (يتبدّل غير كي نديرو مسح)
     let invoiceNumber = "";
 
     function pad2(x){ return String(x).padStart(2,"0"); }
@@ -395,7 +374,6 @@
       const n = parseFloat(val);
       return Number.isFinite(n) ? n : 0;
     }
-
     function toInt(val){
       if(!val) return 0;
       val = String(val).replace(/[^\d]/g, "");
@@ -403,20 +381,18 @@
       return Number.isFinite(n) ? n : 0;
     }
 
-    // بلا فواصل
     function formatDZD(n){
       const x = Math.max(0, Math.round(n));
       return String(x) + " دج";
     }
 
-    // "يعني" بالفرنك: 1 دج = 100 فرنك
     function formatMeaningByFranc(nDzd){
       const dzd = Math.max(0, Math.round(nDzd));
       const francs = dzd * 100;
 
       const millions = Math.floor(francs / 1000000);
       const rest = francs % 1000000;
-      const thousands = Math.floor(rest / 1000); // ألف فرنك
+      const thousands = Math.floor(rest / 1000);
 
       if (millions === 0){
         return "يعني: " + String(thousands) + " ألف";
@@ -436,21 +412,16 @@
     function normalizeName(s){
       return (s || "").trim().replace(/ـ/g, "").replace(/\s+/g, " ");
     }
-
     function firstNameFromFull(full){
       const t = normalizeName(full);
       if(!t) return "";
       return t.split(" ")[0];
     }
-
-    // fallback: حرفين + وش
     function fallbackNickname(firstName){
       const n = normalizeName(firstName);
       if(!n) return "";
-      const two = n.slice(0, 2);
-      return two + "وش";
+      return n.slice(0,2) + "وش";
     }
-
     function getNickname(full){
       const first = firstNameFromFull(full);
       if(!first) return "";
@@ -512,9 +483,8 @@
       fullName.value = "";
       address.value = "";
       phone.value = "";
-
-      generateInvoiceNumber();     // رقم جديد عند المسح
-      updateDateTimeOnly();        // حدّث التاريخ/الوقت
+      generateInvoiceNumber();
+      updateDateTimeOnly();
       scheduleUpdate();
       window.scrollTo({top:0, behavior:"smooth"});
     });
@@ -547,8 +517,8 @@
     updateDateTimeOnly();
     updateUI();
 
-    // تحديث التاريخ والوقت كل دقيقة (بدون تغيير رقم الفاتورة)
+    // تحديث الوقت كل دقيقة
     setInterval(updateDateTimeOnly, 60000);
   </script>
 </body>
-  </html>
+        </html>
