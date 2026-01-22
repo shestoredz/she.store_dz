@@ -1,282 +1,609 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>she.store_dz</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>she.store_dz</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- html2canvas (لتحميل الفاتورة كصورة) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-<style>
-*{box-sizing:border-box;font-family:'Tajawal',sans-serif}
-body{
-  margin:0;
-  background:#fff0f6;
-  display:flex;
-  justify-content:center;
-}
-.container{
-  width:100%;
-  max-width:430px;
-  padding:12px;
-}
-.header{
-  background:#e91e63;
-  color:#fff;
-  text-align:center;
-  padding:14px;
-  border-radius:18px;
-  font-weight:900;
-  font-size:18px;
-}
-.card{
-  background:#fff;
-  margin-top:10px;
-  border-radius:18px;
-  padding:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,.1);
-}
-label{
-  font-size:13px;
-  font-weight:700;
-  color:#555;
-}
-input{
-  width:100%;
-  padding:10px;
-  margin-top:5px;
-  margin-bottom:8px;
-  border-radius:12px;
-  border:1px solid #f3b5cc;
-  font-size:15px;
-}
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-.resultBox{
-  background:#d81b60;
-  color:#fff;
-  border-radius:16px;
-  padding:10px;
-  text-align:center;
-}
-.resultBox .price{
-  font-size:22px;
-  font-weight:900;
-}
-.resultBox .meaning{
-  font-size:18px;
-  font-weight:900;
-}
-.thanksTop{
-  text-align:center;
-  margin-top:6px;
-  font-weight:700;
-  color:#c2185b;
-}
-.invoiceTitle{
-  background:#ffd1e4;
-  text-align:center;
-  padding:8px;
-  font-weight:900;
-  border-radius:14px 14px 0 0;
-}
-.invoiceBody{
-  padding:10px;
-}
-.invRow{
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  padding:6px 0;
-  border-bottom:1px solid #eee;
-}
-.invRow:last-child{border:none}
-.finalThanks{
-  text-align:center;
-  margin-top:8px;
-  font-weight:900;
-  color:#c2185b;
-}
-.note{
-  text-align:center;
-  font-size:13px;
-  margin-top:6px;
-  color:#7a2450;
-}
-.buttons{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-button{
-  flex:1;
-  padding:10px;
-  border-radius:14px;
-  border:none;
-  font-weight:900;
-  cursor:pointer;
-}
-.download{background:#e91e63;color:#fff}
-.clear{background:#fff;border:1px solid #e91e63;color:#e91e63}
-</style>
+  <style>
+    :root{
+      --pink:#ff5aa5;
+      --pink2:#ff7bb7;
+      --deep:#c2185b;
+      --bg:#fff7fb;
+      --card:#ffffff;
+      --line:#f4b3cf;
+      --text:#333;
+      --muted:#777;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #ffe6f1 0%, #fff 40%, #fff7fb 100%);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 14px 12px 18px;
+    }
+
+    .hero{
+      background: linear-gradient(90deg, var(--pink) 0%, var(--pink2) 100%);
+      color:#fff;
+      text-align:center;
+      padding: 14px 12px;
+      border-radius: 22px;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing:.2px;
+      box-shadow: 0 10px 25px rgba(255,90,165,.18);
+      margin-bottom: 12px;
+    }
+
+    .card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(244,179,207,.6);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 10px 25px rgba(194,24,91,.06);
+      backdrop-filter: blur(4px);
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    label{
+      display:block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input{
+      width:100%;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 2px solid rgba(244,179,207,.75);
+      outline: none;
+      font-size: 16px;
+      background:#fff;
+    }
+    input:focus{
+      border-color: rgba(255,90,165,.8);
+      box-shadow: 0 0 0 3px rgba(255,90,165,.12);
+    }
+
+    .one{
+      margin-bottom: 10px;
+    }
+
+    /* صندوق السعر بالدج (وردي غامق) */
+    .priceBox{
+      background: linear-gradient(90deg, #ff4f9f 0%, #c2185b 100%);
+      color:#fff;
+      border-radius: 16px;
+      padding: 12px 12px;
+      text-align:center;
+      margin: 8px 0 6px;
+      box-shadow: 0 10px 25px rgba(194,24,91,.18);
+    }
+    .priceBox .da{
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing:.3px;
+    }
+    .priceBox .meaning{
+      margin-top: 6px;
+      font-size: 16px;   /* "يعني" كبيرة وواضحة */
+      font-weight: 800;
+      opacity: .98;
+    }
+
+    .thankTop{
+      text-align:center;
+      margin: 6px 0 2px;
+      color: var(--deep);
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    /* فاتورة */
+    .invoice{
+      margin-top: 10px;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(244,179,207,.75);
+      background: var(--card);
+    }
+
+    .invoiceTitle{
+      background: #ffd2e6;
+      color:#333;
+      font-weight: 900;
+      text-align:center;
+      padding: 10px 10px;
+      font-size: 18px;
+      border-bottom: 1px dashed rgba(194,24,91,.25);
+    }
+
+    .invoiceInner{
+      padding: 10px 12px 12px;
+    }
+
+    .invoiceHeader{
+      display:flex;
+      justify-content:space-between;
+      gap: 8px;
+      font-size: 12px;
+      color:#666;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .invoiceHeader span{
+      background:#fff;
+      border: 1px solid rgba(244,179,207,.75);
+      border-radius: 12px;
+      padding: 4px 8px;
+      white-space: nowrap;
+    }
+
+    .rows{
+      width:100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .rows td{
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(244,179,207,.5);
+      vertical-align: middle;
+    }
+    .rows td.key{
+      color:#666;
+      font-weight: 800;
+      width: 52%;
+    }
+    .rows td.val{
+      color:#111;
+      font-weight: 900;
+      text-align: left; /* بالقلب يبان مليح */
+      direction:ltr;
+    }
+    .rows td.val.ar{
+      direction:rtl;
+      text-align:right;
+    }
+
+    .stamp{
+      text-align:center;
+      font-size:11px;
+      color:#c2185b;
+      border:1px dashed rgba(244,179,207,.95);
+      border-radius:12px;
+      padding:5px 8px;
+      width: fit-content;
+      margin: 8px auto 6px;
+      font-weight: 900;
+    }
+
+    .thanksNick{
+      text-align:center;
+      font-weight: 900;
+      color: var(--deep);
+      font-size: 18px;
+      margin-top: 4px;
+    }
+
+    .instruction{
+      text-align:center;
+      margin-top: 6px;
+      color:#7b1b45;
+      font-weight: 800;
+      line-height: 1.35;
+      font-size: 14px;
+      padding: 0 6px;
+    }
+
+    .btns{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px 12px 12px;
+      background: #fff7fb;
+      border-top: 1px solid rgba(244,179,207,.55);
+    }
+    button{
+      border:0;
+      border-radius: 16px;
+      padding: 12px 10px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .download{
+      background: linear-gradient(90deg, var(--pink) 0%, var(--deep) 100%);
+      color:#fff;
+      box-shadow: 0 10px 20px rgba(194,24,91,.16);
+    }
+    .reset{
+      background:#fff;
+      border: 2px solid rgba(244,179,207,.95);
+      color:#7b1b45;
+    }
+
+    /* نخلي الصفحة “قدامك” قدر الإمكان */
+    .compactNote{
+      text-align:center;
+      margin-top: 8px;
+      color:#b01957;
+      font-weight: 800;
+      font-size: 13px;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
+  <div class="wrap">
+    <div class="hero">مرحباً بكِ في <span style="opacity:.98">she.store_dz</span></div>
 
-<div class="header">مرحباً بكِ في she.store_dz</div>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label for="productCount">عدد المنتج</label>
+          <input id="productCount" type="number" min="1" value="1" inputmode="numeric" />
+        </div>
+        <div>
+          <label for="pieceCount">عدد القطع</label>
+          <input id="pieceCount" type="number" min="1" value="1" inputmode="numeric" />
+        </div>
+      </div>
 
-<div class="card">
-  <div class="row">
-    <div>
-      <label>عدد المنتج</label>
-      <input id="products" value="1">
+      <div class="one">
+        <label for="usdTotal">السعر الإجمالي بالدولار ($)</label>
+        <input id="usdTotal" type="number" min="0" step="0.01" inputmode="decimal" />
+      </div>
+
+      <div class="priceBox" aria-live="polite">
+        <div class="da"><span id="daTotal">0</span> دج</div>
+        <div class="meaning">يعني: <span id="meaningText">0</span></div>
+      </div>
+
+      <div class="thankTop">شكراً لكِ يا سكرة لزيارتك 💗</div>
     </div>
-    <div>
-      <label>عدد القطع</label>
-      <input id="pieces" value="1">
+
+    <div class="invoice" id="invoiceBox">
+      <div class="invoiceTitle">فاتورتك</div>
+      <div class="invoiceInner">
+        <div class="invoiceHeader">
+          <span id="invoiceNumber">فاتورة رقم: —</span>
+          <span id="invoiceDate">—</span>
+        </div>
+
+        <!-- إدخال المعلومات -->
+        <div class="one">
+          <label for="fullName">الاسم واللقب (إجباري)</label>
+          <input id="fullName" type="text" autocomplete="name" />
+        </div>
+
+        <div class="one">
+          <label for="address">السكن (إجباري)</label>
+          <input id="address" type="text" autocomplete="street-address" />
+        </div>
+
+        <div class="one">
+          <label for="phone">رقم الهاتف (إجباري)</label>
+          <input id="phone" type="tel" inputmode="tel" autocomplete="tel" />
+        </div>
+
+        <!-- ملخص الفاتورة (نفس الفاتورة، ماكانش زوج) -->
+        <table class="rows" role="presentation" aria-hidden="false">
+          <tr>
+            <td class="key">الاسم واللقب</td>
+            <td class="val ar" id="invName">-</td>
+          </tr>
+          <tr>
+            <td class="key">السكن</td>
+            <td class="val ar" id="invAddress">-</td>
+          </tr>
+          <tr>
+            <td class="key">رقم الهاتف</td>
+            <td class="val" id="invPhone">-</td>
+          </tr>
+          <tr>
+            <td class="key">عدد المنتجات</td>
+            <td class="val" id="invProducts">1</td>
+          </tr>
+          <tr>
+            <td class="key">المجموع النهائي</td>
+            <td class="val" id="invTotal">0 دج</td>
+          </tr>
+        </table>
+
+        <div class="stamp">she.store_dz ✔</div>
+
+        <div class="thanksNick" id="thanksNick">💗</div>
+        <div class="instruction">
+          عند موافقتك للشراء ارسلي رابط سلة مع صورة الفاتورة في الخاص ✅📱
+        </div>
+      </div>
+
+      <div class="btns">
+        <button class="download" id="downloadBtn">تنزيل الفاتورة (صورة)</button>
+        <button class="reset" id="resetBtn">مسح</button>
+      </div>
     </div>
+
+    <div class="compactNote">💗</div>
   </div>
-
-  <label>السعر الإجمالي بالدولار ($)</label>
-  <input id="usd">
-
-  <div class="resultBox">
-    <div class="price" id="dzd">0 دج</div>
-    <div class="meaning" id="meaning">يعني: 0</div>
-  </div>
-
-  <div class="thanksTop">شكراً لكِ يا سكرة لزيارتك 💗</div>
-</div>
-
-<div class="card" id="invoice">
-  <div class="invoiceTitle">فاتورتك</div>
-
-  <div class="invoiceBody" id="invoiceShot">
-    <label>الاسم واللقب (إجباري)</label>
-    <input id="name">
-
-    <label>السكن</label>
-    <input id="address">
-
-    <label>رقم الهاتف</label>
-    <input id="phone">
-
-    <div class="invRow"><span>عدد المنتجات</span><span id="invProducts">1</span></div>
-    <div class="invRow"><span>المجموع النهائي</span><span id="invTotal">0 دج</span></div>
-
-    <div class="finalThanks" id="nickThanks">شكراً لكِ 💗</div>
-    <div class="note">
-      عند موافقتك للشراء ارسلي رابط سلة مع صورة الفاتورة في الخاص ✅📱
-    </div>
-  </div>
-
-  <div class="buttons">
-    <button class="download" onclick="downloadInvoice()">تنزيل الفاتورة</button>
-    <button class="clear" onclick="resetAll()">مسح</button>
-  </div>
-</div>
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
 <script>
-const USD_RATE = 270;
-const PROFIT = 250;
-const PACK = 50;
+  // ثوابت الحساب (مخفيين عن المستخدم)
+  const USD_TO_DZD = 270;
+  const PROFIT_PER_PRODUCT = 250;
+  const PACKAGING = 50;
 
-const nicknames = {
-"رحاب":"رحوبة","فرح":"فرفر","سندس":"سوسو","امال":"امولة","هنادي":"هنودة",
-"اية":"ايوتة","آية":"ايوتة","مريم":"مريومة","مرام":"مروش","وصال":"وصول",
-"ايناس":"انوسة","إيناس":"انوسة"
-};
+  // عناصر
+  const productCount = document.getElementById("productCount");
+  const pieceCount   = document.getElementById("pieceCount");
+  const usdTotal     = document.getElementById("usdTotal");
 
-function nickname(name){
-  if(nicknames[name]) return nicknames[name];
-  return name.slice(0,2)+"وش";
-}
+  const daTotal      = document.getElementById("daTotal");
+  const meaningText  = document.getElementById("meaningText");
 
-function meaningText(dzd){
-  let cents = dzd * 100;
-  let million = Math.floor(cents / 1000000);
-  let rest = cents % 1000000;
+  const fullName     = document.getElementById("fullName");
+  const address      = document.getElementById("address");
+  const phone        = document.getElementById("phone");
 
-  let txt = million === 1 ? "مليون" :
-            million === 2 ? "زوج ملاين" :
-            million > 2 ? million + " ملاين" : "";
+  const invName      = document.getElementById("invName");
+  const invAddress   = document.getElementById("invAddress");
+  const invPhone     = document.getElementById("invPhone");
+  const invProducts  = document.getElementById("invProducts");
+  const invTotal     = document.getElementById("invTotal");
 
-  if(rest > 0){
-    let thousands = Math.floor(rest / 1000);
+  const invoiceNumber = document.getElementById("invoiceNumber");
+  const invoiceDate   = document.getElementById("invoiceDate");
+  const thanksNick    = document.getElementById("thanksNick");
+
+  const downloadBtn  = document.getElementById("downloadBtn");
+  const resetBtn     = document.getElementById("resetBtn");
+  const invoiceBox   = document.getElementById("invoiceBox");
+
+  // دلع الأسماء (اللي كتبتيهم)
+  const nickMap = {
+    "رحاب":"رحوبة",
+    "فرح":"فرفر",
+    "سندس":"سوسو",
+    "امال":"امولة",
+    "أمال":"امولة",
+    "هنادي":"هنودة",
+    "اية":"ايوتة",
+    "آية":"ايوتة",
+    "خليصة":"خلوصة",
+    "تقوى":"تقو",
+    "اكرام":"كروم",
+    "إكرام":"كروم",
+    "ضحى":"ضحو",
+    "رحمة":"رحومة",
+    "شيماء":"شيمو",
+    "اشواق":"شوشو",
+    "أشواق":"شوشو",
+    "دعاء":"دعدع",
+    "بسملة":"بسومة",
+    "سلمى":"سلموش",
+    "لبنى":"لبناتي",
+    "اسراء":"ايسري",
+    "إسراء":"ايسري",
+    "بتول":"بتولي",
+    "روميسة":"رومي",
+    "ايمان":"امونة",
+    "إيمان":"امونة",
+    "حنين":"حنون",
+    "رويدة":"رورو",
+    "هديل":"هدولة",
+    "كندة":"كندوش",
+    "اريج":"جوجا",
+    "أريج":"جوجا",
+    "امينة":"امينو",
+    "أمينة":"امينو",
+    "صونيا":"صنصن",
+    "سعاد":"سوسو",
+    "مروى":"ميمي",
+    "مريم":"مريومة",
+    "جهاد":"جهودة",
+    "نسرين":"نسرينة",
+    "ندى":"ندوش",
+    "منة":"منوش",
+    "فتيحة":"فتوح",
+    "اسيل":"اسولة",
+    "أسيل":"اسولة",
+    "وردة":"وردوش",
+    "وئام":"وئوم",
+    "وصال":"وصول",
+    "ايناس":"انوسة",
+    "إيناس":"انوسة",
+    "مرام":"مروش"
+    "عواطف":"عطوفتي"
+  };
+
+  // إذا ماكانش اسم في الماب: أول حرفين + "وش"
+  function makeFallbackNick(name){
+    const cleaned = (name || "").trim();
+    if(!cleaned) return "";
+    const first = cleaned.split(/\s+/)[0]; // أول كلمة
+    const two = first.slice(0,2);
+    return two ? (two + "وش") : "";
+  }
+
+  function getNickFromFullName(value){
+    const v = (value || "").trim();
+    if(!v) return "";
+    const first = v.split(/\s+/)[0];
+    if(nickMap[first]) return nickMap[first];
+    return makeFallbackNick(first);
+  }
+
+  // بدون فواصل/نقاط
+  function noSeparators(n){
+    n = Math.trunc(Number(n) || 0);
+    return String(n);
+  }
+
+  // تحويل الدج إلى نص "مليون و50 ألف" (بالفْرانك) حسب طلبك:
+  // 1000دج = 100 ألف / 10000دج = مليون / 20000دج = زوج ملاين
+  function dzdToFrancsText(dzd){
+    const da = Math.max(0, Math.trunc(Number(dzd) || 0));
+    const francs = da * 100;
+
+    const MILLION = 1000000;
+    const THOUSAND = 1000;
+
+    const millions = Math.floor(francs / MILLION);
+    let rem = francs % MILLION;
+    const thousands = Math.floor(rem / THOUSAND); // "ألف" (بالفرنك)
+
+    function millionWord(m){
+      if(m === 0) return "";
+      if(m === 1) return "مليون";
+      if(m === 2) return "زوج ملاين";
+      // 3+ : "3 ملاين"
+      return m + " ملاين";
+    }
+
+    function thousandWord(t){
+      if(t === 0) return "";
+      if(t === 1) return "ألف";
+      if(t === 2) return "ألفين";
+      return t + " ألف";
+    }
+
+    if(millions > 0 && thousands > 0){
+      return millionWord(millions) + " و" + thousandWord(thousands);
+    }
+    if(millions > 0){
+      return millionWord(millions);
+    }
     if(thousands > 0){
-      txt += (txt ? " و" : "") + thousands + " ألف";
+      return thousandWord(thousands);
+    }
+    return "0";
+  }
+
+  function calcTotalDZD(){
+    const products = Math.max(1, Math.trunc(Number(productCount.value) || 1));
+    productCount.value = products;
+
+    const usd = Math.max(0, Number(usdTotal.value) || 0);
+
+    // الحساب النهائي (مخفي): تحويل الدولار + ربح/منتج + تغليف مرة وحدة
+    const dzd = Math.round(usd * USD_TO_DZD + (products * PROFIT_PER_PRODUCT) + PACKAGING);
+
+    return dzd;
+  }
+
+  function generateInvoiceMeta(){
+    const now = new Date();
+    const date = now.toLocaleDateString("ar-DZ");
+    const time = now.toLocaleTimeString("ar-DZ",{hour:'2-digit', minute:'2-digit'});
+
+    invoiceDate.textContent = date + " • " + time;
+
+    const randomNum = Math.floor(1000 + Math.random()*9000);
+    invoiceNumber.textContent = "فاتورة رقم: SH-" + randomNum;
+  }
+
+  function render(){
+    const dzd = calcTotalDZD();
+
+    // عرض الدج بدون فواصل
+    daTotal.textContent = noSeparators(dzd);
+
+    // "يعني" بالنص اللي تحبيه
+    meaningText.textContent = dzdToFrancsText(dzd);
+
+    // الفاتورة
+    invProducts.textContent = productCount.value;
+    invTotal.textContent = noSeparators(dzd) + " دج";
+
+    const nameV = (fullName.value || "").trim();
+    const addrV = (address.value || "").trim();
+    const phoneV = (phone.value || "").trim();
+
+    invName.textContent = nameV ? nameV : "-";
+    invAddress.textContent = addrV ? addrV : "-";
+    invPhone.textContent = phoneV ? phoneV : "-";
+
+    // دلع
+    const nick = getNickFromFullName(nameV);
+    if(nick){
+      thanksNick.textContent = "شكراً لكِ " + nick + " 💗";
+    }else{
+      thanksNick.textContent = "💗";
     }
   }
-  return "يعني: " + txt;
-}
 
-function calculate(){
-  let p = Math.max(1, parseInt(products.value||1));
-  let usd = parseFloat(usdInput.value||0);
-  let total = Math.round(usd*USD_RATE + p*PROFIT + PACK);
+  // تنزيل الفاتورة كصورة (الفاتورة فقط)
+  async function downloadInvoice(){
+    // نخبي الأزرار قبل التصوير
+    const btns = invoiceBox.querySelector(".btns");
+    btns.style.display = "none";
 
-  dzd.textContent = total + " دج";
-  meaning.textContent = meaningText(total);
+    // نخليها واضحة
+    const canvas = await html2canvas(invoiceBox, {
+      backgroundColor: null,
+      scale: 2,
+      useCORS: true
+    });
 
-  invProducts.textContent = p;
-  invTotal.textContent = total + " دج";
+    btns.style.display = "";
 
-  let n = nameInput.value.trim();
-  nickThanks.textContent = n ? "شكراً لكِ "+nickname(n)+" 💗" : "شكراً لكِ 💗";
-}
-
-function resetAll(){
-  products.value=1;
-  pieces.value=1;
-  usdInput.value="";
-  nameInput.value="";
-  address.value="";
-  phone.value="";
-  calculate();
-}
-
-function downloadInvoice(){
-  if(!nameInput.value||!address.value||!phone.value){
-    alert("رجاءً عمّري المعلومات كاملة");
-    return;
+    const link = document.createElement("a");
+    link.download = "فاتورة_she.store_dz.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
   }
-  html2canvas(invoiceShot,{scale:2}).then(c=>{
-    let a=document.createElement("a");
-    a.href=c.toDataURL("image/png");
-    a.download="فاتورة_she.store_dz.png";
-    a.click();
+
+  function resetAll(){
+    productCount.value = 1;
+    pieceCount.value = 1;
+    usdTotal.value = "";
+
+    fullName.value = "";
+    address.value = "";
+    phone.value = "";
+
+    generateInvoiceMeta();
+    render();
+  }
+
+  // Events
+  ["input","change"].forEach(evt=>{
+    productCount.addEventListener(evt, render);
+    pieceCount.addEventListener(evt, render); // للتذكير فقط (ما يدخلش في الحساب)
+    usdTotal.addEventListener(evt, render);
+
+    fullName.addEventListener(evt, render);
+    address.addEventListener(evt, render);
+    phone.addEventListener(evt, render);
   });
-}
 
-const products=document.getElementById("products");
-const pieces=document.getElementById("pieces");
-const usdInput=document.getElementById("usd");
-const dzd=document.getElementById("dzd");
-const meaning=document.getElementById("meaning");
-const nameInput=document.getElementById("name");
-const address=document.getElementById("address");
-const phone=document.getElementById("phone");
-const invProducts=document.getElementById("invProducts");
-const invTotal=document.getElementById("invTotal");
-const nickThanks=document.getElementById("nickThanks");
-const invoiceShot=document.getElementById("invoiceShot");
+  downloadBtn.addEventListener("click", downloadInvoice);
+  resetBtn.addEventListener("click", resetAll);
 
-["input","change"].forEach(e=>{
-  products.addEventListener(e,calculate);
-  usdInput.addEventListener(e,calculate);
-  nameInput.addEventListener(e,calculate);
-});
-
-calculate();
+  // تشغيل أول مرة
+  generateInvoiceMeta();
+  render();
 </script>
-
 </body>
-</html>
+  </html>
