@@ -12,7 +12,8 @@
   <style>
     :root{
       --pink:#d81b73;
-      --pinkLine:#f3c1d6;
+      --pink2:#ff3f90;
+      --line:#f3c1d6;
       --muted:#7a7a7a;
       --soft:#fff6fb;
     }
@@ -29,7 +30,7 @@
       padding: 10px 12px 14px;
     }
     .header{
-      background: linear-gradient(90deg,#ff6aa8,#ff3f90);
+      background: linear-gradient(90deg,#ff6aa8,var(--pink2));
       color:#fff;
       text-align:center;
       font-weight:900;
@@ -39,6 +40,7 @@
       margin-bottom: 8px;
     }
 
+    /* صندوق الحاسبة العلوي (صغير) */
     .box{
       background:#fff;
       border: 1px solid #ffd0e1;
@@ -46,13 +48,11 @@
       padding: 10px;
       margin-bottom: 8px;
     }
-
     .grid2{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
     }
-
     label{
       display:block;
       color:#6f6f6f;
@@ -60,7 +60,6 @@
       font-size: 12px;
       margin-bottom: 6px;
     }
-
     input{
       width:100%;
       border: 1px solid #ffd0e1;
@@ -75,6 +74,7 @@
       box-shadow: 0 0 0 3px rgba(255,106,168,.14);
     }
 
+    /* مستطيل السعر */
     .resultBox{
       margin-top: 8px;
       background: linear-gradient(90deg,#f065a8,#d81b73);
@@ -102,14 +102,15 @@
       font-size: 13px;
     }
 
-    /* ====== الفاتورة بالشكل تاع الصورة (بدون كادر) ====== */
-    .invoiceArea{
+    /* ===== ورقة الفاتورة (كيما الكابتير) ===== */
+    .paperWrap{
       background:#fff;
       border: 1px solid #ffd0e1;
       border-radius: 14px;
       padding: 10px;
     }
 
+    /* خانات معلوماتها (فوق الورقة) */
     .inputsBox{
       background:#fff;
       border: 1px solid #ffd0e1;
@@ -118,10 +119,10 @@
       margin-bottom: 10px;
     }
 
-    /* هذا هو الجزء اللي يتصوّر */
+    /* الورقة اللي تتصوّر */
     .paper{
       background:#fff;
-      padding: 0;           /* بلا padding باش يجي كيما الصورة */
+      padding: 0;
     }
 
     .metaRow{
@@ -136,22 +137,23 @@
     }
     .metaRow .l{ text-align:left; direction:ltr; }
 
+    /* خطوط صغار كيما الكابتير */
     .invLine{
       display:flex;
       justify-content:space-between;
       align-items:flex-end;
-      padding: 10px 0;                /* نفس تاع الصورة */
-      border-bottom: 2px solid var(--pinkLine);
+      padding: 8px 0;
+      border-bottom: 2px solid var(--line);
     }
     .invLabel{
       color: var(--muted);
       font-weight:800;
-      font-size: 18px;               /* كيما الصورة */
+      font-size: 16px;   /* صغار */
     }
     .invValue{
       color:#000;
       font-weight:900;
-      font-size: 22px;               /* كيما الصورة */
+      font-size: 18px;   /* صغار */
       direction:ltr;
       text-align:left;
     }
@@ -159,22 +161,18 @@
       direction:rtl;
       text-align:right;
     }
-    .invValue.small{
-      font-size: 20px;
-    }
 
     .thanks{
       text-align:center;
-      margin-top: 12px;
-      font-size: 30px;               /* شكراً كبيرة كيما الصورة */
+      margin-top: 10px;
+      font-size: 22px;  /* ماشي كبيرة بزاف */
       font-weight:900;
       color: var(--pink);
-      letter-spacing:.2px;
     }
     .note{
       text-align:center;
-      margin-top: 8px;
-      font-size: 20px;
+      margin-top: 6px;
+      font-size: 14px;
       font-weight:800;
       color:#8b2d57;
       line-height:1.55;
@@ -236,8 +234,9 @@
       <div class="after">شكراً لكِ يا سكرة لزيارتك 💗</div>
     </div>
 
-    <!-- منطقة الفاتورة -->
-    <div class="invoiceArea">
+    <!-- الفاتورة: وحدة فقط -->
+    <div class="paperWrap">
+
       <!-- مدخلات الزبونة -->
       <div class="inputsBox">
         <div style="display:grid; gap:10px">
@@ -256,7 +255,7 @@
         </div>
       </div>
 
-      <!-- يتصوّر كصورة -->
+      <!-- هذا فقط يتصوّر -->
       <div class="paper" id="invoiceShot">
         <div class="metaRow">
           <div id="invNo">رقم الفاتورة: -</div>
@@ -264,28 +263,28 @@
         </div>
 
         <div class="invLine">
-          <div class="invLabel">الاسم واللقب</div>
           <div class="invValue ar" id="invName">-</div>
+          <div class="invLabel">الاسم واللقب</div>
         </div>
 
         <div class="invLine">
-          <div class="invLabel">السكن</div>
           <div class="invValue ar" id="invAddr">-</div>
+          <div class="invLabel">السكن</div>
         </div>
 
         <div class="invLine">
-          <div class="invLabel">رقم الهاتف</div>
           <div class="invValue" id="invPhone">-</div>
+          <div class="invLabel">رقم الهاتف</div>
         </div>
 
         <div class="invLine">
+          <div class="invValue" id="invProducts">1</div>
           <div class="invLabel">عدد المنتجات</div>
-          <div class="invValue small" id="invProducts">1</div>
         </div>
 
         <div class="invLine">
-          <div class="invLabel">المجموع النهائي</div>
           <div class="invValue" id="invTotal">0 دج</div>
+          <div class="invLabel">المجموع النهائي</div>
         </div>
 
         <div class="thanks" id="thankLine">شكراً لكِ 💗</div>
@@ -310,6 +309,7 @@
     const PROFIT_PER_PRODUCT = 250;
     const PACKAGING_FEE = 50;
 
+    // كامل دلع البنات اللي عطيتيني + عواطف
     const nickMap = new Map([
       ["رحاب","رحوبة"],["فرح","فرفر"],["سندس","سوسو"],["امال","امولة"],["آمال","امولة"],
       ["هنادي","هنودة"],["اية","ايوتة"],["آية","ايوتة"],["خليصة","خلوصة"],["تقوى","تقو"],
@@ -325,7 +325,7 @@
     ]);
 
     const elProducts = document.getElementById("products");
-    const elPieces   = document.getElementById("pieces");
+    const elPieces   = document.getElementById("pieces"); // ما يدخلش في الحساب
     const elUsd      = document.getElementById("usd");
 
     const dzdText = document.getElementById("dzdText");
@@ -348,17 +348,14 @@
     const clearBtn = document.getElementById("clearBtn");
     const downloadBtn = document.getElementById("downloadBtn");
 
-    let invoiceNumber = "";
-
     function pad2(x){ return String(x).padStart(2,"0"); }
 
     function generateInvoiceNumber(){
       const t = Date.now().toString();
-      invoiceNumber = "SHE-" + t.slice(-6);
-      invNo.textContent = "رقم الفاتورة: " + invoiceNumber;
+      invNo.textContent = "رقم الفاتورة: SHE-" + t.slice(-6);
     }
 
-    function updateDateTimeOnly(){
+    function updateDateTime(){
       const now = new Date();
       const y = now.getFullYear();
       const m = pad2(now.getMonth()+1);
@@ -383,10 +380,11 @@
 
     function formatDZD(n){
       const x = Math.max(0, Math.round(n));
-      return String(x) + " دج";
+      return String(x) + " دج"; // بلا فواصل
     }
 
-    function formatMeaningByFranc(nDzd){
+    // 1 دج = 100 فرنك => 10000دج = مليون
+    function meaningByFranc(nDzd){
       const dzd = Math.max(0, Math.round(nDzd));
       const francs = dzd * 100;
 
@@ -441,7 +439,7 @@
       const totalDzd = calcTotalDZD();
 
       dzdText.textContent = formatDZD(totalDzd);
-      meaningText.textContent = formatMeaningByFranc(totalDzd);
+      meaningText.textContent = meaningByFranc(totalDzd);
 
       invName.textContent = normalizeName(fullName.value) || "-";
       invAddr.textContent = normalizeName(address.value) || "-";
@@ -484,7 +482,7 @@
       address.value = "";
       phone.value = "";
       generateInvoiceNumber();
-      updateDateTimeOnly();
+      updateDateTime();
       scheduleUpdate();
       window.scrollTo({top:0, behavior:"smooth"});
     });
@@ -514,11 +512,11 @@
 
     // تشغيل أولي
     generateInvoiceNumber();
-    updateDateTimeOnly();
+    updateDateTime();
     updateUI();
 
     // تحديث الوقت كل دقيقة
-    setInterval(updateDateTimeOnly, 60000);
+    setInterval(updateDateTime, 60000);
   </script>
 </body>
-        </html>
+  </html>
