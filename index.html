@@ -1,498 +1,282 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>she.store_dz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>she.store_dz</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --pink-1:#ffe8f1;
-      --pink-2:#ffd3e4;
-      --pink-4:#ff6aa8;
-      --pink-5:#ff3f90;
-      --pink-dark:#d81b73;
-      --text:#2a2a2a;
-      --muted:#6b6b6b;
-      --card:#ffffff;
-      --line:#ffd0e1;
-      --shadow: 0 10px 26px rgba(216,27,115,.12);
-      --radius: 18px;
-    }
-
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Tajawal", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, var(--pink-1), #fff 46%, #fff);
-      color:var(--text);
-    }
-
-    .wrap{
-      width: 100%;
-      max-width: 460px;
-      margin: 0 auto;
-      padding: 12px 12px 16px;
-      min-height: 100svh;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .header{
-      background: linear-gradient(90deg, var(--pink-4), var(--pink-5));
-      color:#fff;
-      border-radius: 22px;
-      padding: 14px 12px;
-      text-align:center;
-      box-shadow: var(--shadow);
-      font-weight: 800;
-      font-size: 18px;
-    }
-
-    .card{
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--line);
-      overflow:hidden;
-    }
-
-    .section{ padding: 12px; }
-
-    label{
-      display:block;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      font-weight: 700;
-    }
-
-    input{
-      width:100%;
-      padding: 11px 12px;
-      border-radius: 14px;
-      border: 1px solid #ffd3e4;
-      outline: none;
-      font-size: 15px;
-      background: #fff;
-      transition:.15s ease;
-    }
-    input:focus{
-      border-color: var(--pink-4);
-      box-shadow: 0 0 0 4px rgba(255,106,168,.15);
-    }
-
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    /* المستطيل الوردي للنتيجة */
-    .dzdBox{
-      margin-top: 10px;
-      background: linear-gradient(90deg, #f065a8, var(--pink-dark));
-      color:#fff;
-      border-radius: 18px;
-      padding: 10px 12px;
-      text-align:center;
-    }
-    .dzdValue{
-      font-size: 24px;
-      font-weight: 900;
-      line-height: 1.05;
-      margin: 0;
-    }
-    .meaning{
-      margin: 6px 0 0;
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .afterBoxThanks{
-      text-align:center;
-      margin-top: 8px;
-      color:#c2185b;
-      font-weight: 900;
-      font-size: 14px;
-    }
-    .heart{ color: var(--pink-dark); }
-
-    /* فاتورة وحدة */
-    .invoiceHead{
-      background: #ffd9e8;
-      padding: 10px 12px;
-      font-weight: 900;
-      text-align:center;
-      border-bottom: 1px dashed #ffb7d1;
-      font-size: 15px;
-    }
-
-    .invBody{ padding: 10px 12px; }
-
-    .invRow{
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      gap: 10px;
-      padding: 8px 0;
-      border-bottom: 1px solid #ffe0ec;
-      font-size: 14px;
-    }
-    .invRow:last-child{border-bottom:none}
-
-    .invKey{color:#6a6a6a; font-weight:800}
-    .invVal{font-weight:900; color:#222; text-align:left; direction:ltr}
-
-    .miniNote{
-      text-align:center;
-      padding: 10px 12px 0;
-      color:#c2185b;
-      font-weight:900;
-      font-size: 14px;
-      line-height:1.4;
-    }
-
-    .miniNote2{
-      text-align:center;
-      padding: 8px 12px 12px;
-      color:#7a2450;
-      font-weight:800;
-      font-size: 13px;
-      line-height:1.4;
-    }
-
-    .actions{
-      display:flex;
-      gap: 10px;
-      padding: 10px 12px 12px;
-    }
-    button{
-      flex:1;
-      border:none;
-      border-radius: 16px;
-      padding: 11px 10px;
-      font-weight: 900;
-      cursor:pointer;
-      font-size: 14px;
-    }
-    .btnClear{
-      background: #fff;
-      border: 1px solid #ffb7d1;
-      color: #c2185b;
-    }
-    .btnDownload{
-      background: linear-gradient(90deg, var(--pink-4), var(--pink-5));
-      color:#fff;
-      box-shadow: 0 10px 18px rgba(255,63,144,.18);
-    }
-
-    @media (max-width:360px){
-      .dzdValue{font-size:22px}
-      .meaning{font-size:17px}
-      .header{font-size:17px}
-      input{font-size:14px}
-    }
-  </style>
+<style>
+*{box-sizing:border-box;font-family:'Tajawal',sans-serif}
+body{
+  margin:0;
+  background:#fff0f6;
+  display:flex;
+  justify-content:center;
+}
+.container{
+  width:100%;
+  max-width:430px;
+  padding:12px;
+}
+.header{
+  background:#e91e63;
+  color:#fff;
+  text-align:center;
+  padding:14px;
+  border-radius:18px;
+  font-weight:900;
+  font-size:18px;
+}
+.card{
+  background:#fff;
+  margin-top:10px;
+  border-radius:18px;
+  padding:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+}
+label{
+  font-size:13px;
+  font-weight:700;
+  color:#555;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin-top:5px;
+  margin-bottom:8px;
+  border-radius:12px;
+  border:1px solid #f3b5cc;
+  font-size:15px;
+}
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.resultBox{
+  background:#d81b60;
+  color:#fff;
+  border-radius:16px;
+  padding:10px;
+  text-align:center;
+}
+.resultBox .price{
+  font-size:22px;
+  font-weight:900;
+}
+.resultBox .meaning{
+  font-size:18px;
+  font-weight:900;
+}
+.thanksTop{
+  text-align:center;
+  margin-top:6px;
+  font-weight:700;
+  color:#c2185b;
+}
+.invoiceTitle{
+  background:#ffd1e4;
+  text-align:center;
+  padding:8px;
+  font-weight:900;
+  border-radius:14px 14px 0 0;
+}
+.invoiceBody{
+  padding:10px;
+}
+.invRow{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  padding:6px 0;
+  border-bottom:1px solid #eee;
+}
+.invRow:last-child{border:none}
+.finalThanks{
+  text-align:center;
+  margin-top:8px;
+  font-weight:900;
+  color:#c2185b;
+}
+.note{
+  text-align:center;
+  font-size:13px;
+  margin-top:6px;
+  color:#7a2450;
+}
+.buttons{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+button{
+  flex:1;
+  padding:10px;
+  border-radius:14px;
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+}
+.download{background:#e91e63;color:#fff}
+.clear{background:#fff;border:1px solid #e91e63;color:#e91e63}
+</style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="header">مرحباً بكِ في she.store_dz</div>
+<div class="container">
 
-    <!-- الخانات الفوق (واجدة 1 و1) -->
-    <div class="card">
-      <div class="section">
-        <div class="row2">
-          <div>
-            <label for="products">عدد المنتج</label>
-            <input id="products" inputmode="numeric" value="1" />
-          </div>
-          <div>
-            <label for="pieces">عدد القطع</label>
-            <input id="pieces" inputmode="numeric" value="1" />
-          </div>
-        </div>
+<div class="header">مرحباً بكِ في she.store_dz</div>
 
-        <div style="margin-top:10px">
-          <label for="usd">السعر الإجمالي بالدولار ($)</label>
-          <input id="usd" inputmode="decimal" value="" />
-        </div>
-
-        <div class="dzdBox" aria-live="polite">
-          <p class="dzdValue" id="dzdText">0 دج</p>
-          <p class="meaning" id="meaningText">يعني: 0 ألف</p>
-        </div>
-
-        <div class="afterBoxThanks">شكراً لكِ يا سكرة لزيارتك <span class="heart">💗</span></div>
-      </div>
+<div class="card">
+  <div class="row">
+    <div>
+      <label>عدد المنتج</label>
+      <input id="products" value="1">
     </div>
-
-    <!-- فاتورة وحدة: تكتب معلوماتها + نفس الفاتورة تتحوّل لصورة -->
-    <div class="card" id="invoiceCard">
-      <div class="invoiceHead">فاتورتك</div>
-
-      <div class="section">
-        <div style="display:grid; gap:10px">
-          <div>
-            <label for="fullName">الاسم واللقب (إجباري)</label>
-            <input id="fullName" />
-          </div>
-          <div>
-            <label for="address">السكن (إجباري)</label>
-            <input id="address" />
-          </div>
-          <div>
-            <label for="phone">رقم الهاتف (إجباري)</label>
-            <input id="phone" inputmode="tel" />
-          </div>
-        </div>
-      </div>
-
-      <!-- نفس الفاتورة (عرض النتائج) -->
-      <div class="invBody" id="invoiceShot">
-        <div class="invRow">
-          <div class="invKey">الاسم واللقب</div>
-          <div class="invVal" id="invName">-</div>
-        </div>
-        <div class="invRow">
-          <div class="invKey">السكن</div>
-          <div class="invVal" id="invAddr">-</div>
-        </div>
-        <div class="invRow">
-          <div class="invKey">رقم الهاتف</div>
-          <div class="invVal" id="invPhone">-</div>
-        </div>
-        <div class="invRow">
-          <div class="invKey">عدد المنتجات</div>
-          <div class="invVal" id="invProducts">1</div>
-        </div>
-        <div class="invRow">
-          <div class="invKey">المجموع النهائي</div>
-          <div class="invVal" id="invTotal">0 دج</div>
-        </div>
-
-        <div class="miniNote" id="thankLine">شكراً لكِ <span class="heart">💗</span></div>
-        <div class="miniNote2">عند موافقتك للشراء ارسلي رابط سلة مع صورة الفاتورة في الخاص ✅📱</div>
-      </div>
-
-      <div class="actions">
-        <button class="btnDownload" id="downloadBtn" type="button">تنزيل الفاتورة (صورة)</button>
-        <button class="btnClear" id="clearBtn" type="button">مسح</button>
-      </div>
+    <div>
+      <label>عدد القطع</label>
+      <input id="pieces" value="1">
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <label>السعر الإجمالي بالدولار ($)</label>
+  <input id="usd">
 
-  <script>
-    // (Hidden logic only)
-    const USD_TO_DZD = 270;
-    const PROFIT_PER_PRODUCT = 250;
-    const PACKAGING_FEE = 50;
+  <div class="resultBox">
+    <div class="price" id="dzd">0 دج</div>
+    <div class="meaning" id="meaning">يعني: 0</div>
+  </div>
 
-    const nickMap = new Map([
-      ["رحاب","رحوبة"],
-      ["فرح","فرفر"],
-      ["سندس","سوسو"],
-      ["امال","امولة"],
-      ["هنادي","هنودة"],
-      ["اية","ايوتة"], ["آية","ايوتة"],
-      ["خليصة","خلوصة"],
-      ["تقوى","تقو"],
-      ["اكرام","كروم"], ["إكرام","كروم"],
-      ["ضحى","ضحو"],
-      ["رحمة","رحومة"],
-      ["شيماء","شيمو"],
-      ["اشواق","شوشو"], ["أشواق","شوشو"],
-      ["دعاء","دعدع"],
-      ["بسملة","بسومة"],
-      ["سلمى","سلموش"],
-      ["لبنى","لبناتي"],
-      ["اسراء","ايسري"], ["إسراء","ايسري"],
-      ["بتول","بتولي"],
-      ["روميسة","رومي"],
-      ["ايمان","امونة"], ["إيمان","امونة"],
-      ["حنين","حنون"],
-      ["رويدة","رورو"],
-      ["هديل","هدولة"],
-      ["كندة","كندوش"],
-      ["اريج","جوجا"], ["أريج","جوجا"],
-      ["امينة","امينو"], ["أمينة","امينو"],
-      ["صونيا","صنصن"],
-      ["سعاد","سوسو"],
-      ["مروى","ميمي"],
-      ["مريم","مريومة"],
-      ["جهاد","جهودة"],
-      ["نسرين","نسرينة"],
-      ["ندى","ندوش"],
-      ["منة","منوش"],
-      ["فتيحة","فتوح"],
-      ["اسيل","اسولة"], ["أسيل","اسولة"],
-      ["وردة","وردوش"],
-      ["وئام","وئوم"],
-      ["وصال","وصول"],
-      ["ايناس","انوسة"], ["إيناس","انوسة"],
-      ["مرام","مروش"],
-    ]);
+  <div class="thanksTop">شكراً لكِ يا سكرة لزيارتك 💗</div>
+</div>
 
-    const elProducts = document.getElementById("products");
-    const elPieces   = document.getElementById("pieces"); // ما يدخلش في الحساب
-    const elUsd      = document.getElementById("usd");
+<div class="card" id="invoice">
+  <div class="invoiceTitle">فاتورتك</div>
 
-    const dzdText = document.getElementById("dzdText");
-    const meaningText = document.getElementById("meaningText");
+  <div class="invoiceBody" id="invoiceShot">
+    <label>الاسم واللقب (إجباري)</label>
+    <input id="name">
 
-    const fullName = document.getElementById("fullName");
-    const address = document.getElementById("address");
-    const phone = document.getElementById("phone");
+    <label>السكن</label>
+    <input id="address">
 
-    const invName = document.getElementById("invName");
-    const invAddr = document.getElementById("invAddr");
-    const invPhone = document.getElementById("invPhone");
-    const invProducts = document.getElementById("invProducts");
-    const invTotal = document.getElementById("invTotal");
-    const thankLine = document.getElementById("thankLine");
+    <label>رقم الهاتف</label>
+    <input id="phone">
 
-    const clearBtn = document.getElementById("clearBtn");
-    const downloadBtn = document.getElementById("downloadBtn");
+    <div class="invRow"><span>عدد المنتجات</span><span id="invProducts">1</span></div>
+    <div class="invRow"><span>المجموع النهائي</span><span id="invTotal">0 دج</span></div>
 
-    function toNumber(val){
-      if(!val) return 0;
-      val = String(val).replace(",", ".").replace(/[^\d.]/g, "");
-      const n = parseFloat(val);
-      return Number.isFinite(n) ? n : 0;
+    <div class="finalThanks" id="nickThanks">شكراً لكِ 💗</div>
+    <div class="note">
+      عند موافقتك للشراء ارسلي رابط سلة مع صورة الفاتورة في الخاص ✅📱
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="download" onclick="downloadInvoice()">تنزيل الفاتورة</button>
+    <button class="clear" onclick="resetAll()">مسح</button>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script>
+const USD_RATE = 270;
+const PROFIT = 250;
+const PACK = 50;
+
+const nicknames = {
+"رحاب":"رحوبة","فرح":"فرفر","سندس":"سوسو","امال":"امولة","هنادي":"هنودة",
+"اية":"ايوتة","آية":"ايوتة","مريم":"مريومة","مرام":"مروش","وصال":"وصول",
+"ايناس":"انوسة","إيناس":"انوسة"
+};
+
+function nickname(name){
+  if(nicknames[name]) return nicknames[name];
+  return name.slice(0,2)+"وش";
+}
+
+function meaningText(dzd){
+  let cents = dzd * 100;
+  let million = Math.floor(cents / 1000000);
+  let rest = cents % 1000000;
+
+  let txt = million === 1 ? "مليون" :
+            million === 2 ? "زوج ملاين" :
+            million > 2 ? million + " ملاين" : "";
+
+  if(rest > 0){
+    let thousands = Math.floor(rest / 1000);
+    if(thousands > 0){
+      txt += (txt ? " و" : "") + thousands + " ألف";
     }
+  }
+  return "يعني: " + txt;
+}
 
-    function toInt(val){
-      if(!val) return 0;
-      val = String(val).replace(/[^\d]/g, "");
-      const n = parseInt(val, 10);
-      return Number.isFinite(n) ? n : 0;
-    }
+function calculate(){
+  let p = Math.max(1, parseInt(products.value||1));
+  let usd = parseFloat(usdInput.value||0);
+  let total = Math.round(usd*USD_RATE + p*PROFIT + PACK);
 
-    function formatDZD(n){
-      const x = Math.max(0, Math.round(n));
-      return x.toLocaleString("en-US") + " دج";
-    }
+  dzd.textContent = total + " دج";
+  meaning.textContent = meaningText(total);
 
-    function formatMeaning(n){
-      const x = Math.max(0, Math.round(n));
-      const alf = Math.round(x / 10);
-      return "يعني: " + alf.toLocaleString("en-US") + " ألف";
-    }
+  invProducts.textContent = p;
+  invTotal.textContent = total + " دج";
 
-    function normalizeName(s){
-      return (s || "").trim().replace(/ـ/g, "").replace(/\s+/g, " ");
-    }
+  let n = nameInput.value.trim();
+  nickThanks.textContent = n ? "شكراً لكِ "+nickname(n)+" 💗" : "شكراً لكِ 💗";
+}
 
-    function firstNameFromFull(full){
-      const t = normalizeName(full);
-      if(!t) return "";
-      return t.split(" ")[0];
-    }
+function resetAll(){
+  products.value=1;
+  pieces.value=1;
+  usdInput.value="";
+  nameInput.value="";
+  address.value="";
+  phone.value="";
+  calculate();
+}
 
-    function fallbackNickname(firstName){
-      const n = normalizeName(firstName);
-      if(!n) return "";
-      const two = n.slice(0, 2);
-      return two + "وش";
-    }
+function downloadInvoice(){
+  if(!nameInput.value||!address.value||!phone.value){
+    alert("رجاءً عمّري المعلومات كاملة");
+    return;
+  }
+  html2canvas(invoiceShot,{scale:2}).then(c=>{
+    let a=document.createElement("a");
+    a.href=c.toDataURL("image/png");
+    a.download="فاتورة_she.store_dz.png";
+    a.click();
+  });
+}
 
-    function getNickname(full){
-      const first = firstNameFromFull(full);
-      if(!first) return "";
-      if(nickMap.has(first)) return nickMap.get(first);
-      return fallbackNickname(first);
-    }
+const products=document.getElementById("products");
+const pieces=document.getElementById("pieces");
+const usdInput=document.getElementById("usd");
+const dzd=document.getElementById("dzd");
+const meaning=document.getElementById("meaning");
+const nameInput=document.getElementById("name");
+const address=document.getElementById("address");
+const phone=document.getElementById("phone");
+const invProducts=document.getElementById("invProducts");
+const invTotal=document.getElementById("invTotal");
+const nickThanks=document.getElementById("nickThanks");
+const invoiceShot=document.getElementById("invoiceShot");
 
-    function calcTotalDZD(){
-      const p = Math.max(1, toInt(elProducts.value)); // خلي أقل شيء 1
-      const usd = toNumber(elUsd.value);
-      return Math.max(0, Math.round((usd * USD_TO_DZD) + (p * PROFIT_PER_PRODUCT) + PACKAGING_FEE));
-    }
+["input","change"].forEach(e=>{
+  products.addEventListener(e,calculate);
+  usdInput.addEventListener(e,calculate);
+  nameInput.addEventListener(e,calculate);
+});
 
-    function updateUI(){
-      const p = Math.max(1, toInt(elProducts.value));
-      const totalDzd = calcTotalDZD();
+calculate();
+</script>
 
-      dzdText.textContent = formatDZD(totalDzd);
-      meaningText.textContent = formatMeaning(totalDzd);
-
-      invName.textContent = normalizeName(fullName.value) || "-";
-      invAddr.textContent = normalizeName(address.value) || "-";
-      invPhone.textContent = normalizeName(phone.value) || "-";
-      invProducts.textContent = String(p);
-      invTotal.textContent = formatDZD(totalDzd);
-
-      const nameOk = normalizeName(fullName.value);
-      if(nameOk){
-        const nick = getNickname(nameOk);
-        thankLine.innerHTML = `شكراً لكِ <span class="heart">${nick}</span> <span class="heart">💗</span>`;
-      }else{
-        thankLine.innerHTML = `شكراً لكِ <span class="heart">💗</span>`;
-      }
-    }
-
-    let rafId = null;
-    function scheduleUpdate(){
-      if(rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        rafId = null;
-        updateUI();
-      });
-    }
-
-    ["input","change","keyup"].forEach(evt=>{
-      elProducts.addEventListener(evt, scheduleUpdate);
-      elUsd.addEventListener(evt, scheduleUpdate);
-      elPieces.addEventListener(evt, scheduleUpdate);
-      fullName.addEventListener(evt, scheduleUpdate);
-      address.addEventListener(evt, scheduleUpdate);
-      phone.addEventListener(evt, scheduleUpdate);
-    });
-
-    clearBtn.addEventListener("click", ()=>{
-      elProducts.value = "1";
-      elPieces.value = "1";
-      elUsd.value = "";
-      fullName.value = "";
-      address.value = "";
-      phone.value = "";
-      scheduleUpdate();
-      window.scrollTo({top:0, behavior:"smooth"});
-    });
-
-    downloadBtn.addEventListener("click", async ()=>{
-      const n = normalizeName(fullName.value);
-      const a = normalizeName(address.value);
-      const ph = normalizeName(phone.value);
-
-      if(!n || !a || !ph){
-        alert("لازم تعمّري: الاسم واللقب + السكن + رقم الهاتف");
-        return;
-      }
-
-      // نصوّر غير جزء الفاتورة (اللي فيه النتائج + الشكر + التنبيه)
-      const node = document.getElementById("invoiceShot");
-      const canvas = await html2canvas(node, {
-        backgroundColor: "#ffffff",
-        scale: 2,
-        useCORS: true
-      });
-
-      const link = document.createElement("a");
-      link.download = "فاتورة_she.store_dz.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    });
-
-    updateUI();
-  </script>
 </body>
-            </html>
+</html>
